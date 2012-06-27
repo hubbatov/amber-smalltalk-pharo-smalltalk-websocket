@@ -1,0 +1,122 @@
+/*===========================*/
+/*Basic classes styles*/
+body{
+    background-image: url("img/resourses/metal.jpg");
+    font: 11pt Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+h1{
+    font-size: 36px;
+    margin: 0;
+    color: #fc6;
+}
+h2{
+    margin-top: 0;
+}
+/*===========================*/
+/*Main elements of page*/
+#bigdiv{
+    background: #fffeee;
+    border: 1px solid #333;
+    margin: 20px;
+    height: 470px;
+    border-radius: 15px;
+    opacity: 0.9
+}
+#sidebar{ 
+    float: right;
+    margin: 10px 10px 0px 0px;
+    width: 20%; 
+    padding: 5px; 
+    height:400px;
+    opacity: 0.7;
+}
+#workspace{ 
+    margin: 10px 0px 0px 10px;
+    padding: 5px; 
+    background: #ffe8e8;
+    overflow: auto;
+    height: 400px;
+    
+}
+#workspace_client{ 
+    margin: 10px 10px 10px 10px;
+    padding: 5px; 
+    background: #ffffff; 
+    overflow: auto;
+    height: 400px;
+    opacity: 0.9;
+}
+#footer{ 
+    padding: 10px; 
+    color: #fff; 
+    clear: left; 
+    text-align: right;
+    border-radius: 5px;
+    margin: 20px;
+}
+#header{ 
+    padding: 10px;
+    height: 60px;
+    margin: 20px;
+    margin-bottom: 0px;
+    background-image: url("img/resourses/amber.png");
+    background-repeat: no-repeat;
+
+}
+/*===========================*/
+/*Toolbar and toolbuttons*/
+#toolBar{ 
+    padding: 10px;
+    margin: 20px;
+}
+.toolbutton{
+    font-size: large;
+    color: gray;
+    border-radius: 10px;
+    margin-top: -10px;
+    float: right;
+}
+.toolbutton:hover{
+    color: black;
+}
+/*===========================*/
+/*Sidebar inputs*/
+.actionButton{
+    width: 64px;
+    height: 64px;
+    bottom: 100px;
+    right: 50px;
+    position: absolute;
+    background-color: rgba(255,255,255,0);
+}
+.actionButton:hover{
+    background-color: rgba(128,128,255,0);
+}
+.inputField{
+    width: 100%;
+}
+#add{
+    background-image: url("img/resourses/accept.png");
+    background-repeat: no-repeat;
+    background-size: 64px 64px;
+    border-style:none;
+}
+#change{
+    background-image: url("img/resourses/update.png");
+    background-repeat: no-repeat;
+    background-size: 64px 64px;
+    border-style:none;
+}
+#remove{
+    background-image: url("img/resourses/remove.png");
+    background-repeat: no-repeat;
+    background-size: 64px 64px;
+    border-style:none;
+}
+#info{
+    color: red;
+}
+#selected{
+    color: red;
+}

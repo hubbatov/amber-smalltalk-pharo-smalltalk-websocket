@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+   <script type='text/javascript' src='../../js/amber.js'></script>
+   <script type='text/javascript' src='/projects/lib/raphael.js'></script>
+   <script type='text/javascript' src='/projects/lib/mousescale.js'></script>
+   <script type="text/javascript">    
+      loadAmber(
+		{ files: ['HMI.js' ], prefix: 'projects/simpleHMI/js', ready: function() {
+      			$(function() {
+        			smalltalk.WebHMI._new()._startClient();
+      			});
+     		}});
+    </script>
+  </head>
+  <body onresize="smalltalk.WebHMI._resize()">
+  <div id="header">
+  </div>
+  <div id="bigdiv">
+  <p id="scaleVal">Scale 100%</p>
+  <div id="workspace_client" onMouseOver="setHook(this,1);" onMouseOut="setHook(this);">
+  </div>
+  <div>
+  <div id="footer">&copy; Hubatov Rustem
+  </div>
+  </body>
+</html>

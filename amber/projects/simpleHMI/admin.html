@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+   <script type='text/javascript' src='../../js/amber.js'></script>
+   <script type='text/javascript' src='/projects/lib/raphael.js'></script>
+   <script type='text/javascript' src='/projects/lib/mousescale.js'></script>
+   <script type="text/javascript">    
+      loadAmber(
+		{ files: ['HMI.js' ], prefix: 'projects/simpleHMI/js', ready: function() {
+      			$(function() {
+        			smalltalk.WebHMI._new()._startAdmin();
+      			});
+     		}});
+    </script>
+  </head>
+  <body onresize="smalltalk.WebHMI._resize()">
+  <div id="header">
+
+  <div id="toolBar">
+  <input id="getScheme" class="toolbutton" type="button" value="Refresh"></button>
+  <input id="addItem" class="toolbutton" type="button" value="Add new item"></button>
+  <input id="delItem" class="toolbutton" type="button" value="Remove item"></button>
+  <input id="chItem" class="toolbutton" type="button" value="Change item"></button>
+  <input id="browserButton" class="toolbutton" type="button" value="OpenBrowser" onclick="smalltalk.Browser._open()"></button>
+  </div>
+  </div>
+  <div id="bigdiv">
+  <p id="scaleVal">Scale 100%</p>
+  <div id="sidebar">
+  </div>
+  <div id="workspace" onmouseup="this.style.cursor='default';" onmousedown="this.style.cursor='move';" onMouseOver="setHook(this,1);" onMouseOut="setHook(this);">
+  </div>
+  <div>
+  <div id="footer">&copy; Hubatov Rustem
+  </div>
+  </body>
+</html>
