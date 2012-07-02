@@ -2,7 +2,7 @@ amber_pharo_websocket
 =====================
 
 This project will give you an example of how to comunicate Amber and Pharo using WebSockets. 
-Using this example ypu can create realtime smalltalk web-applications, i hope)
+Using this example you can create realtime smalltalk web-applications, i hope)
 
 How To run:
 -Download and install node.js (for example from nodejs.org)
