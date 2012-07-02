@@ -9,5 +9,7 @@ How To run:<br>
 -Run pharo server (pharo directory/pharo.sh)<br>
 -Run amber server (amber directory/#sudo node ./server/server.js)<br>
 -Open your browser and go to http://localhost:4000/projects/simpleHMI/admin.html<br>
+-In class WebHMI in amber find method 'createSocket' and edit server address there<br>
+-Refresh page<br>
 
 If you will find any bugs, will have additions to projects please let me know on hubbatov@mail.ru
