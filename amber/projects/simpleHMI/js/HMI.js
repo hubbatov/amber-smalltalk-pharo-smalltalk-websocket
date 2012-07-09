@@ -1097,11 +1097,11 @@ fn: function (){
 var self=this;
 var div=nil;
 (div=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", [smalltalk.send(self, "_workSpaceId", [])]));
-smalltalk.send(self['@field'], "_setSize_value_", [((($receiver = smalltalk.send(div, "_clientWidth", [])).klass === smalltalk.Number) ? $receiver -(20) : smalltalk.send($receiver, "__minus", [(20)])), ((($receiver = smalltalk.send(div, "_clientHeight", [])).klass === smalltalk.Number) ? $receiver -(20) : smalltalk.send($receiver, "__minus", [(20)]))]);
+(($receiver = div) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self['@field'], "_setSize_value_", [((($receiver = smalltalk.send(div, "_clientWidth", [])).klass === smalltalk.Number) ? $receiver -(20) : smalltalk.send($receiver, "__minus", [(20)])), ((($receiver = smalltalk.send(div, "_clientHeight", [])).klass === smalltalk.Number) ? $receiver -(20) : smalltalk.send($receiver, "__minus", [(20)]))]);})() : nil;
 return self;},
 args: [],
-source: "resize\x0a|div|\x0adiv := document getElementById: (self workSpaceId).\x0afield setSize:  ( div clientWidth - 20 ) value: ( div clientHeight -  20)",
-messageSends: ["getElementById:", "workSpaceId", "setSize:value:", "-", "clientWidth", "clientHeight"],
+source: "resize\x0a|div|\x0adiv := document getElementById: (self workSpaceId).\x0adiv ifNotNil: [ field setSize: ( div clientWidth - 20 ) value: ( div clientHeight -  20) ]",
+messageSends: ["getElementById:", "workSpaceId", "ifNotNil:", "setSize:value:", "-", "clientWidth", "clientHeight"],
 referencedClasses: []
 }),
 smalltalk.WebHMI.klass);

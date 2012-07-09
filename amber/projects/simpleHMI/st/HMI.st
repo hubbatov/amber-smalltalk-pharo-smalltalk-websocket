@@ -424,7 +424,7 @@ removeFormHTML
 resize
 |div|
 div := document getElementById: (self workSpaceId).
-field setSize:  ( div clientWidth - 20 ) value: ( div clientHeight -  20)
+div ifNotNil: [ field setSize: ( div clientWidth - 20 ) value: ( div clientHeight -  20) ]
 !
 
 scale

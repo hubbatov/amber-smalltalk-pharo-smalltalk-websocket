@@ -56224,3 +56224,1460 @@ PasteUpMorph>>doOneCycle
 	Processor terminateActive] in BlockClosure>>newProcess
 ------------------------------------------------------------
 
+THERE_BE_DRAGONS_HERE
+Error: Could not find version 'WebClient-Core-ar.90'. Maybe you need to add a repository?
+9 July 2012 9:05:06 pm
+
+VM: unix - i686 - linux-gnu - Croquet Closure Cog VM [CoInterpreter VMMaker-oscog-IgorStasenko.123]
+Image: Pharo1.3 [Latest update: #13315]
+
+MCRepositoryGroup(Object)>>error:
+	Receiver: a MCRepositoryGroup
+	Arguments and temporary variables: 
+		aString: 	'Could not find version ''WebClient-Core-ar.90''. Maybe you need to ad...etc...
+	Receiver's instance variables: 
+		repositories: 	an OrderedCollection(a MCHttpRepository(http://www.squeaksource.c...etc...
+		useCache: 	true
+
+
+[self error: 'Could not find version ' , aVersionInfo name printString , '. Maybe you need to add a repository?'] in MCRepositoryGroup>>versionWithInfo:
+	Receiver: a MCRepositoryGroup
+	Arguments and temporary variables: 
+		aVersionInfo: 	a MCVersionInfo(WebClient-Core-ar.90)
+	Receiver's instance variables: 
+		repositories: 	an OrderedCollection(a MCHttpRepository(http://www.squeaksource.c...etc...
+		useCache: 	true
+
+
+MCRepositoryGroup>>versionWithInfo:ifNone:
+	Receiver: a MCRepositoryGroup
+	Arguments and temporary variables: 
+		aVersionInfo: 	a MCVersionInfo(WebClient-Core-ar.90)
+		aBlock: 	[self error: 'Could not find version ' , aVersionInfo name printString ...etc...
+	Receiver's instance variables: 
+		repositories: 	an OrderedCollection(a MCHttpRepository(http://www.squeaksource.c...etc...
+		useCache: 	true
+
+
+MCRepositoryGroup>>versionWithInfo:
+	Receiver: a MCRepositoryGroup
+	Arguments and temporary variables: 
+		aVersionInfo: 	a MCVersionInfo(WebClient-Core-ar.90)
+	Receiver's instance variables: 
+		repositories: 	an OrderedCollection(a MCHttpRepository(http://www.squeaksource.c...etc...
+		useCache: 	true
+
+
+MCWorkingCopy>>findSnapshotWithVersionInfo:
+	Receiver: a MCWorkingCopy(WebClient-Core)
+	Arguments and temporary variables: 
+		aVersionInfo: 	a MCVersionInfo(WebClient-Core-ar.90)
+		aVersion: 	nil
+	Receiver's instance variables: 
+		package: 	a MCPackage(WebClient-Core)
+		modified: 	true
+		versionInfo: 	nil
+		ancestry: 	a MCWorkingAncestry
+		counter: 	nil
+		repositoryGroup: 	a MCRepositoryGroup
+		requiredPackages: 	an OrderedCollection()
+
+
+MCMergeRecord>>ancestorSnapshot
+	Receiver: a MCMergeRecord
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		version: 	a MCVersion(WebClient-Core-klub.91)
+		packageSnapshot: 	a MCSnapshot
+		ancestorInfo: 	a MCVersionInfo(WebClient-Core-ar.90)
+		ancestor: 	nil
+		ancestorSnapshot: 	nil
+		imagePatch: 	nil
+		mergePatch: 	nil
+
+
+MCMergeRecord>>mergePatch
+	Receiver: a MCMergeRecord
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		version: 	a MCVersion(WebClient-Core-klub.91)
+		packageSnapshot: 	a MCSnapshot
+		ancestorInfo: 	a MCVersionInfo(WebClient-Core-ar.90)
+		ancestor: 	nil
+		ancestorSnapshot: 	nil
+		imagePatch: 	nil
+		mergePatch: 	nil
+
+
+[:ea | merger applyPatch: ea mergePatch] in MCVersionMerger>>mergeWithNameLike:
+	Receiver: a MCVersionMerger
+	Arguments and temporary variables: 
+		ea: 	a MCMergeRecord
+	Receiver's instance variables: 
+		records: 	an OrderedCollection(a MCMergeRecord)
+		merger: 	a MCThreeWayMerger
+
+
+OrderedCollection>>do:
+	Receiver: an OrderedCollection(a MCMergeRecord)
+	Arguments and temporary variables: 
+		aBlock: 	[:ea | merger applyPatch: ea mergePatch]
+		index: 	3
+	Receiver's instance variables: 
+		array: 	an Array(nil nil a MCMergeRecord nil nil nil nil nil nil nil)
+		firstIndex: 	3
+		lastIndex: 	3
+
+
+MCVersionMerger>>mergeWithNameLike:
+	Receiver: a MCVersionMerger
+	Arguments and temporary variables: 
+		baseName: 	'WebClient-Core-klub.91'
+	Receiver's instance variables: 
+		records: 	an OrderedCollection(a MCMergeRecord)
+		merger: 	a MCThreeWayMerger
+
+
+MCVersionMerger class>>mergeVersion:
+	Receiver: MCVersionMerger
+	Arguments and temporary variables: 
+		aVersion: 	a MCVersion(WebClient-Core-klub.91)
+	Receiver's instance variables: 
+		superclass: 	Object
+		methodDict: 	a MethodDictionary(#addVersion:->(MCVersionMerger>>#addVersion: "a ...etc...
+		format: 	134
+		instanceVariables: 	#('records' 'merger')
+		organization: 	('as yet unclassified' addVersion: initialize merge mergeWithName...etc...
+		subclasses: 	nil
+		name: 	#MCVersionMerger
+		classPool: 	nil
+		sharedPools: 	nil
+		environment: 	a SystemDictionary(lots of globals)
+		category: 	#'Monticello-Versioning'
+		traitComposition: 	nil
+		localSelectors: 	nil
+
+
+MCVersion>>merge
+	Receiver: a MCVersion(WebClient-Core-klub.91)
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		package: 	a MCPackage(WebClient-Core)
+		info: 	a MCVersionInfo(WebClient-Core-klub.91)
+		snapshot: 	a MCSnapshot
+		dependencies: 	#()
+
+
+MCMczReader class(MCVersionReader class)>>mergeVersionStream:
+	Receiver: MCMczReader
+	Arguments and temporary variables: 
+		stream: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mcz'...etc...
+	Receiver's instance variables: 
+		superclass: 	MCVersionReader
+		methodDict: 	a MethodDictionary(#associate:->(MCMczReader>>#associate: "a Compil...etc...
+		format: 	144
+		instanceVariables: 	#('zip' 'infoCache')
+		organization: 	('as yet unclassified' associate: extractDefinitionsFrom: extract...etc...
+		subclasses: 	{MCMcdReader}
+		name: 	#MCMczReader
+		classPool: 	nil
+		sharedPools: 	nil
+		environment: 	a SystemDictionary(lots of globals)
+		category: 	#'Monticello-Storing'
+		traitComposition: 	nil
+		localSelectors: 	nil
+
+
+SimpleServiceEntry>>performServiceFor:
+	Receiver: SimpleServiceEntry: (MCMczReader --- mergeVersionStream:)
+	Arguments and temporary variables: 
+		anObject: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mc...etc...
+	Receiver's instance variables: 
+		dependents: 	nil
+		provider: 	MCMczReader
+		label: 	'Merge version'
+		selector: 	#mergeVersionStream:
+		usingLineAfter: 	true
+		stateSelector: 	#none
+		description: 	'Merge a package version into the image'
+		argumentGetter: 	[:fileList | fileList readOnlyStream]
+		buttonLabel: 	'Merge'
+
+
+[:stream | theOne performServiceFor: stream] in ExternalDropHandler class>>lookupServiceBasedHandler:
+	Receiver: ExternalDropHandler
+	Arguments and temporary variables: 
+		theOne: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mcz'...etc...
+		stream: 	SimpleServiceEntry: (MCMczReader --- mergeVersionStream:)
+	Receiver's instance variables: 
+		superclass: 	Object
+		methodDict: 	a MethodDictionary(#extension->(ExternalDropHandler>>#extension "a ...etc...
+		format: 	136
+		instanceVariables: 	#('action' 'type' 'extension')
+		organization: 	('accessing' extension handle:in:dropEvent: type)
+('initialize' t...etc...
+		subclasses: 	nil
+		name: 	#ExternalDropHandler
+		classPool: 	a Dictionary(#DefaultHandler->a DefaultExternalDropHandler #Register...etc...
+		sharedPools: 	nil
+		environment: 	a SystemDictionary(lots of globals)
+		category: 	#'System-Support'
+		traitComposition: 	nil
+		localSelectors: 	nil
+
+
+BlockClosure>>cull:
+	Receiver: [:stream | theOne performServiceFor: stream]
+	Arguments and temporary variables: 
+		anArg: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mcz'
+	Receiver's instance variables: 
+		outerContext: 	ExternalDropHandler class>>lookupServiceBasedHandler:
+		startpc: 	120
+		numArgs: 	1
+
+
+BlockClosure>>cull:cull:
+	Receiver: [:stream | theOne performServiceFor: stream]
+	Arguments and temporary variables: 
+		firstArg: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mc...etc...
+		secondArg: 	a PasteUpMorph(425197568) [world]
+	Receiver's instance variables: 
+		outerContext: 	ExternalDropHandler class>>lookupServiceBasedHandler:
+		startpc: 	120
+		numArgs: 	1
+
+
+BlockClosure>>cull:cull:cull:
+	Receiver: [:stream | theOne performServiceFor: stream]
+	Arguments and temporary variables: 
+		firstArg: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mc...etc...
+		secondArg: 	a PasteUpMorph(425197568) [world]
+		thirdArg: 	[653@71 dropFilesEvent nil]
+	Receiver's instance variables: 
+		outerContext: 	ExternalDropHandler class>>lookupServiceBasedHandler:
+		startpc: 	120
+		numArgs: 	1
+
+
+ExternalDropHandler>>handle:in:dropEvent:
+	Receiver: an ExternalDropHandler
+	Arguments and temporary variables: 
+		dropStream: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91....etc...
+		pasteUp: 	a PasteUpMorph(425197568) [world]
+		anEvent: 	[653@71 dropFilesEvent nil]
+	Receiver's instance variables: 
+		action: 	[:stream | theOne performServiceFor: stream]
+		type: 	nil
+		extension: 	nil
+
+
+[handler
+		ifNotNil: [handler
+				handle: stream
+				in: self
+				dropEvent: anEvent]] in PasteUpMorph>>dropFiles:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+<<error during printing>
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a PreDebugWindow(697827328) a Sys...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+BlockClosure>>ensure:
+	Receiver: [handler
+		ifNotNil: [handler
+				handle: stream
+				in: self
+				dropEvent: anEvent]]
+	Arguments and temporary variables: 
+		aBlock: 	[stream close]
+		complete: 	nil
+		returnValue: 	nil
+	Receiver's instance variables: 
+		outerContext: 	PasteUpMorph>>dropFiles:
+		startpc: 	90
+		numArgs: 	0
+
+
+PasteUpMorph>>dropFiles:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+<<error during printing>
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a PreDebugWindow(697827328) a Sys...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+PasteUpMorph(Morph)>>handleDropFiles:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+		anEvent: 	[653@71 dropFilesEvent nil]
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a PreDebugWindow(697827328) a Sys...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+DropFilesEvent>>sentTo:
+	Receiver: [653@71 dropFilesEvent nil]
+	Arguments and temporary variables: 
+		anObject: 	a PasteUpMorph(425197568) [world]
+	Receiver's instance variables: 
+		timeStamp: 	nil
+		source: 	a HandMorph(843055104)
+		windowIndex: 	nil
+		position: 	653@71
+		contents: 	1
+		wasHandled: 	true
+
+
+PasteUpMorph(Morph)>>handleEvent:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+		anEvent: 	[653@71 dropFilesEvent nil]
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a PreDebugWindow(697827328) a Sys...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+MorphicEventDispatcher>>dispatchDefault:with:
+	Receiver: a MorphicEventDispatcher
+	Arguments and temporary variables: 
+		anEvent: 	[653@71 dropFilesEvent nil]
+		aMorph: 	a PasteUpMorph(425197568) [world]
+		localEvt: 	[653@71 dropFilesEvent nil]
+		index: 	7
+		child: 	a PluggableStandardWindow(273678336)
+		morphs: 	an Array(a TaskbarMorph(984088576) a SystemWindow(913833984) a Pluggabl...etc...
+		inside: 	true
+	Receiver's instance variables: 
+		lastType: 	#dropFilesEvent
+		lastDispatch: 	#dispatchDefault:with:
+
+
+MorphicEventDispatcher>>dispatchEvent:with:
+	Receiver: a MorphicEventDispatcher
+	Arguments and temporary variables: 
+		anEvent: 	[653@71 dropFilesEvent nil]
+		aMorph: 	a PasteUpMorph(425197568) [world]
+	Receiver's instance variables: 
+		lastType: 	#dropFilesEvent
+		lastDispatch: 	#dispatchDefault:with:
+
+
+PasteUpMorph(Morph)>>processEvent:using:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+		anEvent: 	[653@71 dropFilesEvent nil]
+		defaultDispatcher: 	a MorphicEventDispatcher
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a PreDebugWindow(697827328) a Sys...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+PasteUpMorph>>processEvent:using:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+		anEvent: 	[653@71 dropFilesEvent nil]
+		defaultDispatcher: 	a MorphicEventDispatcher
+		priorWorld: 	a PasteUpMorph(425197568) [world]
+		result: 	nil
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a PreDebugWindow(697827328) a Sys...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+PasteUpMorph(Morph)>>processEvent:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+		anEvent: 	[653@71 dropFilesEvent nil]
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a PreDebugWindow(697827328) a Sys...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+HandMorph>>sendEvent:focus:clear:
+	Receiver: a HandMorph(843055104)
+	Arguments and temporary variables: 
+		anEvent: 	[653@71 dropFilesEvent nil]
+		focusHolder: 	nil
+		aBlock: 	[]
+		result: 	nil
+	Receiver's instance variables: 
+		bounds: 	286@88 corner: 302@104
+		owner: 	a PasteUpMorph(425197568) [world]
+		submorphs: 	#()
+		fullBounds: 	286@88 corner: 302@104
+		color: 	Color blue
+		extension: 	a MorphExtension (141295616) [eventHandler = an EventHandler] 
+		mouseFocus: 	nil
+		keyboardFocus: 	a PluggableButtonMorph(1073217536)
+		eventListeners: 	nil
+		mouseListeners: 	nil
+		keyboardListeners: 	nil
+		mouseClickState: 	nil
+		mouseOverHandler: 	a MouseOverHandler
+		lastMouseEvent: 	[279@64 286@88 mouseMove 97767 nil]
+		targetOffset: 	262@9
+		damageRecorder: 	a DamageRecorder
+		cacheCanvas: 	nil
+		cachedCanvasHasHoles: 	true
+		temporaryCursor: 	nil
+		temporaryCursorOffset: 	nil
+		hardwareCursor: 	nil
+		hasChanged: 	true
+		savedPatch: 	nil
+		userInitials: 	''
+		lastEventBuffer: 	#(1 97767 277 65 0 0 0 1)
+		lastKeyScanCode: 	8
+		combinedChar: 	nil
+
+
+HandMorph>>sendEvent:focus:
+	Receiver: a HandMorph(843055104)
+	Arguments and temporary variables: 
+		anEvent: 	[653@71 dropFilesEvent nil]
+		focusHolder: 	nil
+	Receiver's instance variables: 
+		bounds: 	286@88 corner: 302@104
+		owner: 	a PasteUpMorph(425197568) [world]
+		submorphs: 	#()
+		fullBounds: 	286@88 corner: 302@104
+		color: 	Color blue
+		extension: 	a MorphExtension (141295616) [eventHandler = an EventHandler] 
+		mouseFocus: 	nil
+		keyboardFocus: 	a PluggableButtonMorph(1073217536)
+		eventListeners: 	nil
+		mouseListeners: 	nil
+		keyboardListeners: 	nil
+		mouseClickState: 	nil
+		mouseOverHandler: 	a MouseOverHandler
+		lastMouseEvent: 	[279@64 286@88 mouseMove 97767 nil]
+		targetOffset: 	262@9
+		damageRecorder: 	a DamageRecorder
+		cacheCanvas: 	nil
+		cachedCanvasHasHoles: 	true
+		temporaryCursor: 	nil
+		temporaryCursorOffset: 	nil
+		hardwareCursor: 	nil
+		hasChanged: 	true
+		savedPatch: 	nil
+		userInitials: 	''
+		lastEventBuffer: 	#(1 97767 277 65 0 0 0 1)
+		lastKeyScanCode: 	8
+		combinedChar: 	nil
+
+
+HandMorph>>handleEvent:
+	Receiver: a HandMorph(843055104)
+	Arguments and temporary variables: 
+		anEvent: 	[653@71 dropFilesEvent nil]
+		evt: 	[653@71 dropFilesEvent nil]
+		ofs: 	nil
+	Receiver's instance variables: 
+		bounds: 	286@88 corner: 302@104
+		owner: 	a PasteUpMorph(425197568) [world]
+		submorphs: 	#()
+		fullBounds: 	286@88 corner: 302@104
+		color: 	Color blue
+		extension: 	a MorphExtension (141295616) [eventHandler = an EventHandler] 
+		mouseFocus: 	nil
+		keyboardFocus: 	a PluggableButtonMorph(1073217536)
+		eventListeners: 	nil
+		mouseListeners: 	nil
+		keyboardListeners: 	nil
+		mouseClickState: 	nil
+		mouseOverHandler: 	a MouseOverHandler
+		lastMouseEvent: 	[279@64 286@88 mouseMove 97767 nil]
+		targetOffset: 	262@9
+		damageRecorder: 	a DamageRecorder
+		cacheCanvas: 	nil
+		cachedCanvasHasHoles: 	true
+		temporaryCursor: 	nil
+		temporaryCursorOffset: 	nil
+		hardwareCursor: 	nil
+		hasChanged: 	true
+		savedPatch: 	nil
+		userInitials: 	''
+		lastEventBuffer: 	#(1 97767 277 65 0 0 0 1)
+		lastKeyScanCode: 	8
+		combinedChar: 	nil
+
+
+HandMorph>>processEvents
+	Receiver: a HandMorph(843055104)
+	Arguments and temporary variables: 
+		evt: 	[653@71 dropFilesEvent nil]
+		evtBuf: 	#(3 89699 4 653 71 0 1 1)
+		type: 	3
+		hadAny: 	false
+	Receiver's instance variables: 
+		bounds: 	286@88 corner: 302@104
+		owner: 	a PasteUpMorph(425197568) [world]
+		submorphs: 	#()
+		fullBounds: 	286@88 corner: 302@104
+		color: 	Color blue
+		extension: 	a MorphExtension (141295616) [eventHandler = an EventHandler] 
+		mouseFocus: 	nil
+		keyboardFocus: 	a PluggableButtonMorph(1073217536)
+		eventListeners: 	nil
+		mouseListeners: 	nil
+		keyboardListeners: 	nil
+		mouseClickState: 	nil
+		mouseOverHandler: 	a MouseOverHandler
+		lastMouseEvent: 	[279@64 286@88 mouseMove 97767 nil]
+		targetOffset: 	262@9
+		damageRecorder: 	a DamageRecorder
+		cacheCanvas: 	nil
+		cachedCanvasHasHoles: 	true
+		temporaryCursor: 	nil
+		temporaryCursorOffset: 	nil
+		hardwareCursor: 	nil
+		hasChanged: 	true
+		savedPatch: 	nil
+		userInitials: 	''
+		lastEventBuffer: 	#(1 97767 277 65 0 0 0 1)
+		lastKeyScanCode: 	8
+		combinedChar: 	nil
+
+
+[:h | 
+ActiveHand := h.
+	h processEvents.
+	ActiveHand := nil] in WorldState>>doOneCycleNowFor:
+	Receiver: a WorldState
+	Arguments and temporary variables: 
+		h: 	a HandMorph(843055104)
+	Receiver's instance variables: 
+		hands: 	an Array(a HandMorph(843055104))
+		viewBox: 	0@0 corner: 1380@692
+		canvas: 	a FormCanvas on: DisplayScreen(1380x692x32)
+		damageRecorder: 	a DamageRecorder
+		stepList: 	a Heap(StepMessage(#stepAt: -> an OBSystemWindow(822607872))(an OBSys...etc...
+		lastStepTime: 	97098
+		lastStepMessage: 	nil
+		lastCycleTime: 	97837
+		alarms: 	a Heap()
+		lastAlarmTime: 	97098
+		menuBuilder: 	a PragmaMenuBuilder
+
+
+Array(SequenceableCollection)>>do:
+	Receiver: an Array(a HandMorph(843055104))
+	Arguments and temporary variables: 
+		aBlock: 	[:h | 
+ActiveHand := h.
+	h processEvents.
+	ActiveHand := nil]
+		index: 	1
+		indexLimiT: 	1
+	Receiver's instance variables: 
+an Array(a HandMorph(843055104))
+
+WorldState>>handsDo:
+	Receiver: a WorldState
+	Arguments and temporary variables: 
+		aBlock: 	[:h | 
+ActiveHand := h.
+	h processEvents.
+	ActiveHand := nil]
+	Receiver's instance variables: 
+		hands: 	an Array(a HandMorph(843055104))
+		viewBox: 	0@0 corner: 1380@692
+		canvas: 	a FormCanvas on: DisplayScreen(1380x692x32)
+		damageRecorder: 	a DamageRecorder
+		stepList: 	a Heap(StepMessage(#stepAt: -> an OBSystemWindow(822607872))(an OBSys...etc...
+		lastStepTime: 	97098
+		lastStepMessage: 	nil
+		lastCycleTime: 	97837
+		alarms: 	a Heap()
+		lastAlarmTime: 	97098
+		menuBuilder: 	a PragmaMenuBuilder
+
+
+WorldState>>doOneCycleNowFor:
+	Receiver: a WorldState
+	Arguments and temporary variables: 
+		aWorld: 	a PasteUpMorph(425197568) [world]
+	Receiver's instance variables: 
+		hands: 	an Array(a HandMorph(843055104))
+		viewBox: 	0@0 corner: 1380@692
+		canvas: 	a FormCanvas on: DisplayScreen(1380x692x32)
+		damageRecorder: 	a DamageRecorder
+		stepList: 	a Heap(StepMessage(#stepAt: -> an OBSystemWindow(822607872))(an OBSys...etc...
+		lastStepTime: 	97098
+		lastStepMessage: 	nil
+		lastCycleTime: 	97837
+		alarms: 	a Heap()
+		lastAlarmTime: 	97098
+		menuBuilder: 	a PragmaMenuBuilder
+
+
+WorldState>>doOneCycleFor:
+	Receiver: a WorldState
+	Arguments and temporary variables: 
+		aWorld: 	a PasteUpMorph(425197568) [world]
+	Receiver's instance variables: 
+		hands: 	an Array(a HandMorph(843055104))
+		viewBox: 	0@0 corner: 1380@692
+		canvas: 	a FormCanvas on: DisplayScreen(1380x692x32)
+		damageRecorder: 	a DamageRecorder
+		stepList: 	a Heap(StepMessage(#stepAt: -> an OBSystemWindow(822607872))(an OBSys...etc...
+		lastStepTime: 	97098
+		lastStepMessage: 	nil
+		lastCycleTime: 	97837
+		alarms: 	a Heap()
+		lastAlarmTime: 	97098
+		menuBuilder: 	a PragmaMenuBuilder
+
+
+
+--- The full stack ---
+MCRepositoryGroup(Object)>>error:
+[self error: 'Could not find version ' , aVersionInfo name printString , '. Maybe you need to add a repository?'] in MCRepositoryGroup>>versionWithInfo:
+MCRepositoryGroup>>versionWithInfo:ifNone:
+MCRepositoryGroup>>versionWithInfo:
+MCWorkingCopy>>findSnapshotWithVersionInfo:
+MCMergeRecord>>ancestorSnapshot
+MCMergeRecord>>mergePatch
+[:ea | merger applyPatch: ea mergePatch] in MCVersionMerger>>mergeWithNameLike:
+OrderedCollection>>do:
+MCVersionMerger>>mergeWithNameLike:
+MCVersionMerger class>>mergeVersion:
+MCVersion>>merge
+MCMczReader class(MCVersionReader class)>>mergeVersionStream:
+SimpleServiceEntry>>performServiceFor:
+[:stream | theOne performServiceFor: stream] in ExternalDropHandler class>>lookupServiceBasedHandler:
+BlockClosure>>cull:
+BlockClosure>>cull:cull:
+BlockClosure>>cull:cull:cull:
+ExternalDropHandler>>handle:in:dropEvent:
+[handler
+		ifNotNil: [handler
+				handle: stream
+				in: self
+				dropEvent: anEvent]] in PasteUpMorph>>dropFiles:
+BlockClosure>>ensure:
+PasteUpMorph>>dropFiles:
+PasteUpMorph(Morph)>>handleDropFiles:
+DropFilesEvent>>sentTo:
+PasteUpMorph(Morph)>>handleEvent:
+MorphicEventDispatcher>>dispatchDefault:with:
+MorphicEventDispatcher>>dispatchEvent:with:
+PasteUpMorph(Morph)>>processEvent:using:
+PasteUpMorph>>processEvent:using:
+PasteUpMorph(Morph)>>processEvent:
+HandMorph>>sendEvent:focus:clear:
+HandMorph>>sendEvent:focus:
+HandMorph>>handleEvent:
+HandMorph>>processEvents
+[:h | 
+ActiveHand := h.
+	h processEvents.
+	ActiveHand := nil] in WorldState>>doOneCycleNowFor:
+Array(SequenceableCollection)>>do:
+WorldState>>handsDo:
+WorldState>>doOneCycleNowFor:
+WorldState>>doOneCycleFor:
+ - - - - - - - - - - - - - - -  
+			- - - - - - - - - - - - - - - - - -
+PasteUpMorph>>doOneCycle
+[[World doOneCycle.
+	Processor yield.
+	false] whileFalse.
+	nil] in Project class>>spawnNewProcess
+[self value.
+	Processor terminateActive] in BlockClosure>>newProcess
+------------------------------------------------------------
+
+THERE_BE_DRAGONS_HERE
+Warning
+9 July 2012 9:05:19 pm
+
+VM: unix - i686 - linux-gnu - Croquet Closure Cog VM [CoInterpreter VMMaker-oscog-IgorStasenko.123]
+Image: Pharo1.3 [Latest update: #13315]
+
+MorphicUIManager>>warningDefaultAction:
+	Receiver: a MorphicUIManager
+	Arguments and temporary variables: 
+		anException: 	Warning: You are about to load new versions of the following packa...etc...
+	Receiver's instance variables: 
+		interactiveParser: 	nil
+
+
+Warning>>defaultAction
+	Receiver: Warning: You are about to load new versions of the following packages that have unsaved ch...etc...
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		messageText: 	'You are about to load new versions of the following packages that...etc...
+		tag: 	nil
+		signaler: 	a MCVersionLoader
+		signalContext: 	Warning(Exception)>>signal
+		handlerContext: 	nil
+		outerContext: 	nil
+
+
+UndefinedObject>>handleSignal:
+	Receiver: nil
+	Arguments and temporary variables: 
+		exception: 	Warning: You are about to load new versions of the following package...etc...
+	Receiver's instance variables: 
+nil
+
+Warning(Exception)>>signal
+	Receiver: Warning: You are about to load new versions of the following packages that have unsaved ch...etc...
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		messageText: 	'You are about to load new versions of the following packages that...etc...
+		tag: 	nil
+		signaler: 	a MCVersionLoader
+		signalContext: 	Warning(Exception)>>signal
+		handlerContext: 	nil
+		outerContext: 	nil
+
+
+Warning(Exception)>>signal:
+	Receiver: Warning: You are about to load new versions of the following packages that have unsaved ch...etc...
+	Arguments and temporary variables: 
+		signalerText: 	'You are about to load new versions of the following packages tha...etc...
+	Receiver's instance variables: 
+		messageText: 	'You are about to load new versions of the following packages that...etc...
+		tag: 	nil
+		signaler: 	a MCVersionLoader
+		signalContext: 	Warning(Exception)>>signal
+		handlerContext: 	nil
+		outerContext: 	nil
+
+
+Warning class(Exception class)>>signal:
+	Receiver: Warning
+	Arguments and temporary variables: 
+		signalerText: 	'You are about to load new versions of the following packages tha...etc...
+	Receiver's instance variables: 
+		superclass: 	Notification
+		methodDict: 	a MethodDictionary(#defaultAction->(Warning>>#defaultAction "a Comp...etc...
+		format: 	142
+		instanceVariables: 	nil
+		organization: 	('exceptionDescription' defaultAction)
+
+		subclasses: 	{UndeclaredVariableWarning. Deprecation. XMLParserWarning}
+		name: 	#Warning
+		classPool: 	nil
+		sharedPools: 	nil
+		environment: 	a SystemDictionary(lots of globals)
+		category: 	#'Kernel-Exceptions'
+		traitComposition: 	nil
+		localSelectors: 	nil
+
+
+MCVersionLoader(Object)>>notify:
+	Receiver: a MCVersionLoader
+	Arguments and temporary variables: 
+		aString: 	'You are about to load new versions of the following packages that hav...etc...
+	Receiver's instance variables: 
+		versions: 	an OrderedCollection(a MCVersion(WebClient-Core-klub.91))
+
+
+MCVersionLoader>>warnAboutLosingChangesTo:
+	Receiver: a MCVersionLoader
+	Arguments and temporary variables: 
+		versionCollection: 	an OrderedCollection(a MCVersion(WebClient-Core-klub.91))
+	Receiver's instance variables: 
+		versions: 	an OrderedCollection(a MCVersion(WebClient-Core-klub.91))
+
+
+MCVersionLoader>>checkForModifications
+	Receiver: a MCVersionLoader
+	Arguments and temporary variables: 
+		modifications: 	an OrderedCollection(a MCVersion(WebClient-Core-klub.91))
+	Receiver's instance variables: 
+		versions: 	an OrderedCollection(a MCVersion(WebClient-Core-klub.91))
+
+
+MCVersionLoader>>loadWithNameLike:
+	Receiver: a MCVersionLoader
+	Arguments and temporary variables: 
+		aString: 	'WebClient-Core-klub.91'
+		loader: 	nil
+	Receiver's instance variables: 
+		versions: 	an OrderedCollection(a MCVersion(WebClient-Core-klub.91))
+
+
+MCVersionLoader>>load
+	Receiver: a MCVersionLoader
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		versions: 	an OrderedCollection(a MCVersion(WebClient-Core-klub.91))
+
+
+MCVersionLoader class>>loadVersion:
+	Receiver: MCVersionLoader
+	Arguments and temporary variables: 
+		aVersion: 	a MCVersion(WebClient-Core-klub.91)
+	Receiver's instance variables: 
+		superclass: 	Object
+		methodDict: 	a MethodDictionary(#addDependency:->(MCVersionLoader>>#addDependenc...etc...
+		format: 	132
+		instanceVariables: 	#('versions')
+		organization: 	('*gofer-core-accessing' goferHasVersions goferVersions)
+('*metac...etc...
+		subclasses: 	nil
+		name: 	#MCVersionLoader
+		classPool: 	nil
+		sharedPools: 	nil
+		environment: 	a SystemDictionary(lots of globals)
+		category: 	#'Monticello-Loading'
+		traitComposition: 	nil
+		localSelectors: 	nil
+
+
+MCVersion>>load
+	Receiver: a MCVersion(WebClient-Core-klub.91)
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		package: 	a MCPackage(WebClient-Core)
+		info: 	a MCVersionInfo(WebClient-Core-klub.91)
+		snapshot: 	a MCSnapshot
+		dependencies: 	#()
+
+
+MCMczReader class(MCVersionReader class)>>loadVersionStream:fromDirectory:
+	Receiver: MCMczReader
+	Arguments and temporary variables: 
+		stream: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mcz'...etc...
+		directory: 	UnixFileDirectory on '/home/xumuk/Downloads'
+		version: 	a MCVersion(WebClient-Core-klub.91)
+	Receiver's instance variables: 
+		superclass: 	MCVersionReader
+		methodDict: 	a MethodDictionary(#associate:->(MCMczReader>>#associate: "a Compil...etc...
+		format: 	144
+		instanceVariables: 	#('zip' 'infoCache')
+		organization: 	('as yet unclassified' associate: extractDefinitionsFrom: extract...etc...
+		subclasses: 	{MCMcdReader}
+		name: 	#MCMczReader
+		classPool: 	nil
+		sharedPools: 	nil
+		environment: 	a SystemDictionary(lots of globals)
+		category: 	#'Monticello-Storing'
+		traitComposition: 	nil
+		localSelectors: 	nil
+
+
+SimpleServiceEntry>>performServiceFor:
+	Receiver: SimpleServiceEntry: (MCMczReader --- loadVersionStream:fromDirectory:)
+	Arguments and temporary variables: 
+		anObject: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mc...etc...
+	Receiver's instance variables: 
+		dependents: 	nil
+		provider: 	MCMczReader
+		label: 	'Load version'
+		selector: 	#loadVersionStream:fromDirectory:
+		usingLineAfter: 	true
+		stateSelector: 	#none
+		description: 	'Load a package version'
+		argumentGetter: 	[:fileList | {fileList readOnlyStream. fileList directory}]
+		buttonLabel: 	'Load'
+
+
+[:stream | theOne performServiceFor: stream] in ExternalDropHandler class>>lookupServiceBasedHandler:
+	Receiver: ExternalDropHandler
+	Arguments and temporary variables: 
+		theOne: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mcz'...etc...
+		stream: 	SimpleServiceEntry: (MCMczReader --- loadVersionStream:fromDirectory:)
+	Receiver's instance variables: 
+		superclass: 	Object
+		methodDict: 	a MethodDictionary(#extension->(ExternalDropHandler>>#extension "a ...etc...
+		format: 	136
+		instanceVariables: 	#('action' 'type' 'extension')
+		organization: 	('accessing' extension handle:in:dropEvent: type)
+('initialize' t...etc...
+		subclasses: 	nil
+		name: 	#ExternalDropHandler
+		classPool: 	a Dictionary(#DefaultHandler->a DefaultExternalDropHandler #Register...etc...
+		sharedPools: 	nil
+		environment: 	a SystemDictionary(lots of globals)
+		category: 	#'System-Support'
+		traitComposition: 	nil
+		localSelectors: 	nil
+
+
+BlockClosure>>cull:
+	Receiver: [:stream | theOne performServiceFor: stream]
+	Arguments and temporary variables: 
+		anArg: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mcz'
+	Receiver's instance variables: 
+		outerContext: 	ExternalDropHandler class>>lookupServiceBasedHandler:
+		startpc: 	120
+		numArgs: 	1
+
+
+BlockClosure>>cull:cull:
+	Receiver: [:stream | theOne performServiceFor: stream]
+	Arguments and temporary variables: 
+		firstArg: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mc...etc...
+		secondArg: 	a PasteUpMorph(425197568) [world]
+	Receiver's instance variables: 
+		outerContext: 	ExternalDropHandler class>>lookupServiceBasedHandler:
+		startpc: 	120
+		numArgs: 	1
+
+
+BlockClosure>>cull:cull:cull:
+	Receiver: [:stream | theOne performServiceFor: stream]
+	Arguments and temporary variables: 
+		firstArg: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91.mc...etc...
+		secondArg: 	a PasteUpMorph(425197568) [world]
+		thirdArg: 	[669@114 dropFilesEvent nil]
+	Receiver's instance variables: 
+		outerContext: 	ExternalDropHandler class>>lookupServiceBasedHandler:
+		startpc: 	120
+		numArgs: 	1
+
+
+ExternalDropHandler>>handle:in:dropEvent:
+	Receiver: an ExternalDropHandler
+	Arguments and temporary variables: 
+		dropStream: 	MultiByteFileStream: '/home/xumuk/Downloads/WebClient-Core-klub.91....etc...
+		pasteUp: 	a PasteUpMorph(425197568) [world]
+		anEvent: 	[669@114 dropFilesEvent nil]
+	Receiver's instance variables: 
+		action: 	[:stream | theOne performServiceFor: stream]
+		type: 	nil
+		extension: 	nil
+
+
+[handler
+		ifNotNil: [handler
+				handle: stream
+				in: self
+				dropEvent: anEvent]] in PasteUpMorph>>dropFiles:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+<<error during printing>
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a SystemWindow(913833984) a Plugg...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+BlockClosure>>ensure:
+	Receiver: [handler
+		ifNotNil: [handler
+				handle: stream
+				in: self
+				dropEvent: anEvent]]
+	Arguments and temporary variables: 
+		aBlock: 	[stream close]
+		complete: 	nil
+		returnValue: 	nil
+	Receiver's instance variables: 
+		outerContext: 	PasteUpMorph>>dropFiles:
+		startpc: 	90
+		numArgs: 	0
+
+
+PasteUpMorph>>dropFiles:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+<<error during printing>
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a SystemWindow(913833984) a Plugg...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+PasteUpMorph(Morph)>>handleDropFiles:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+		anEvent: 	[669@114 dropFilesEvent nil]
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a SystemWindow(913833984) a Plugg...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+DropFilesEvent>>sentTo:
+	Receiver: [669@114 dropFilesEvent nil]
+	Arguments and temporary variables: 
+		anObject: 	a PasteUpMorph(425197568) [world]
+	Receiver's instance variables: 
+		timeStamp: 	nil
+		source: 	a HandMorph(843055104)
+		windowIndex: 	nil
+		position: 	669@114
+		contents: 	1
+		wasHandled: 	true
+
+
+PasteUpMorph(Morph)>>handleEvent:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+		anEvent: 	[669@114 dropFilesEvent nil]
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a SystemWindow(913833984) a Plugg...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+MorphicEventDispatcher>>dispatchDefault:with:
+	Receiver: a MorphicEventDispatcher
+	Arguments and temporary variables: 
+		anEvent: 	[669@114 dropFilesEvent nil]
+		aMorph: 	a PasteUpMorph(425197568) [world]
+		localEvt: 	[669@114 dropFilesEvent nil]
+		index: 	7
+		child: 	a PluggableStandardWindow(273678336)
+		morphs: 	an Array(a TaskbarMorph(984088576) a SystemWindow(913833984) a Pluggabl...etc...
+		inside: 	true
+	Receiver's instance variables: 
+		lastType: 	#dropFilesEvent
+		lastDispatch: 	#dispatchDefault:with:
+
+
+MorphicEventDispatcher>>dispatchEvent:with:
+	Receiver: a MorphicEventDispatcher
+	Arguments and temporary variables: 
+		anEvent: 	[669@114 dropFilesEvent nil]
+		aMorph: 	a PasteUpMorph(425197568) [world]
+	Receiver's instance variables: 
+		lastType: 	#dropFilesEvent
+		lastDispatch: 	#dispatchDefault:with:
+
+
+PasteUpMorph(Morph)>>processEvent:using:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+		anEvent: 	[669@114 dropFilesEvent nil]
+		defaultDispatcher: 	a MorphicEventDispatcher
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a SystemWindow(913833984) a Plugg...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+PasteUpMorph>>processEvent:using:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+		anEvent: 	[669@114 dropFilesEvent nil]
+		defaultDispatcher: 	a MorphicEventDispatcher
+		priorWorld: 	a PasteUpMorph(425197568) [world]
+		result: 	nil
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a SystemWindow(913833984) a Plugg...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+PasteUpMorph(Morph)>>processEvent:
+	Receiver: a PasteUpMorph(425197568) [world]
+	Arguments and temporary variables: 
+		anEvent: 	[669@114 dropFilesEvent nil]
+	Receiver's instance variables: 
+		bounds: 	0@0 corner: 1380@692
+		owner: 	nil
+		submorphs: 	an Array(a TaskbarMorph(984088576) a SystemWindow(913833984) a Plugg...etc...
+		fullBounds: 	nil
+		color: 	(Color r: 0.97 g: 0.98 b: 1.0)
+		extension: 	a MorphExtension (666632192) [eventHandler = an EventHandler]  [othe...etc...
+		borderWidth: 	0
+		borderColor: 	(Color r: 0.03 g: 0.02 b: 0.0)
+		backgroundMorph: 	nil
+		worldState: 	a WorldState
+		griddingOn: 	nil
+
+
+HandMorph>>sendEvent:focus:clear:
+	Receiver: a HandMorph(843055104)
+	Arguments and temporary variables: 
+		anEvent: 	[669@114 dropFilesEvent nil]
+		focusHolder: 	nil
+		aBlock: 	[]
+		result: 	nil
+	Receiver's instance variables: 
+		bounds: 	107@217 corner: 123@233
+		owner: 	a PasteUpMorph(425197568) [world]
+		submorphs: 	#()
+		fullBounds: 	107@217 corner: 123@233
+		color: 	Color blue
+		extension: 	a MorphExtension (141295616) [eventHandler = an EventHandler] 
+		mouseFocus: 	nil
+		keyboardFocus: 	a TextMorphForEditView(104595456)
+		eventListeners: 	nil
+		mouseListeners: 	nil
+		keyboardListeners: 	nil
+		mouseClickState: 	nil
+		mouseOverHandler: 	a MouseOverHandler
+		lastMouseEvent: 	[107@217 mouseUp 111444 nil]
+		targetOffset: 	90@6
+		damageRecorder: 	a DamageRecorder
+		cacheCanvas: 	nil
+		cachedCanvasHasHoles: 	true
+		temporaryCursor: 	nil
+		temporaryCursorOffset: 	nil
+		hardwareCursor: 	nil
+		hasChanged: 	true
+		savedPatch: 	nil
+		userInitials: 	''
+		lastEventBuffer: 	#(1 111444 107 217 0 0 0 1)
+		lastKeyScanCode: 	31
+		combinedChar: 	nil
+
+
+HandMorph>>sendEvent:focus:
+	Receiver: a HandMorph(843055104)
+	Arguments and temporary variables: 
+		anEvent: 	[669@114 dropFilesEvent nil]
+		focusHolder: 	nil
+	Receiver's instance variables: 
+		bounds: 	107@217 corner: 123@233
+		owner: 	a PasteUpMorph(425197568) [world]
+		submorphs: 	#()
+		fullBounds: 	107@217 corner: 123@233
+		color: 	Color blue
+		extension: 	a MorphExtension (141295616) [eventHandler = an EventHandler] 
+		mouseFocus: 	nil
+		keyboardFocus: 	a TextMorphForEditView(104595456)
+		eventListeners: 	nil
+		mouseListeners: 	nil
+		keyboardListeners: 	nil
+		mouseClickState: 	nil
+		mouseOverHandler: 	a MouseOverHandler
+		lastMouseEvent: 	[107@217 mouseUp 111444 nil]
+		targetOffset: 	90@6
+		damageRecorder: 	a DamageRecorder
+		cacheCanvas: 	nil
+		cachedCanvasHasHoles: 	true
+		temporaryCursor: 	nil
+		temporaryCursorOffset: 	nil
+		hardwareCursor: 	nil
+		hasChanged: 	true
+		savedPatch: 	nil
+		userInitials: 	''
+		lastEventBuffer: 	#(1 111444 107 217 0 0 0 1)
+		lastKeyScanCode: 	31
+		combinedChar: 	nil
+
+
+HandMorph>>handleEvent:
+	Receiver: a HandMorph(843055104)
+	Arguments and temporary variables: 
+		anEvent: 	[669@114 dropFilesEvent nil]
+		evt: 	[669@114 dropFilesEvent nil]
+		ofs: 	nil
+	Receiver's instance variables: 
+		bounds: 	107@217 corner: 123@233
+		owner: 	a PasteUpMorph(425197568) [world]
+		submorphs: 	#()
+		fullBounds: 	107@217 corner: 123@233
+		color: 	Color blue
+		extension: 	a MorphExtension (141295616) [eventHandler = an EventHandler] 
+		mouseFocus: 	nil
+		keyboardFocus: 	a TextMorphForEditView(104595456)
+		eventListeners: 	nil
+		mouseListeners: 	nil
+		keyboardListeners: 	nil
+		mouseClickState: 	nil
+		mouseOverHandler: 	a MouseOverHandler
+		lastMouseEvent: 	[107@217 mouseUp 111444 nil]
+		targetOffset: 	90@6
+		damageRecorder: 	a DamageRecorder
+		cacheCanvas: 	nil
+		cachedCanvasHasHoles: 	true
+		temporaryCursor: 	nil
+		temporaryCursorOffset: 	nil
+		hardwareCursor: 	nil
+		hasChanged: 	true
+		savedPatch: 	nil
+		userInitials: 	''
+		lastEventBuffer: 	#(1 111444 107 217 0 0 0 1)
+		lastKeyScanCode: 	31
+		combinedChar: 	nil
+
+
+HandMorph>>processEvents
+	Receiver: a HandMorph(843055104)
+	Arguments and temporary variables: 
+		evt: 	[669@114 dropFilesEvent nil]
+		evtBuf: 	#(3 108404 4 669 114 0 1 1)
+		type: 	3
+		hadAny: 	false
+	Receiver's instance variables: 
+		bounds: 	107@217 corner: 123@233
+		owner: 	a PasteUpMorph(425197568) [world]
+		submorphs: 	#()
+		fullBounds: 	107@217 corner: 123@233
+		color: 	Color blue
+		extension: 	a MorphExtension (141295616) [eventHandler = an EventHandler] 
+		mouseFocus: 	nil
+		keyboardFocus: 	a TextMorphForEditView(104595456)
+		eventListeners: 	nil
+		mouseListeners: 	nil
+		keyboardListeners: 	nil
+		mouseClickState: 	nil
+		mouseOverHandler: 	a MouseOverHandler
+		lastMouseEvent: 	[107@217 mouseUp 111444 nil]
+		targetOffset: 	90@6
+		damageRecorder: 	a DamageRecorder
+		cacheCanvas: 	nil
+		cachedCanvasHasHoles: 	true
+		temporaryCursor: 	nil
+		temporaryCursorOffset: 	nil
+		hardwareCursor: 	nil
+		hasChanged: 	true
+		savedPatch: 	nil
+		userInitials: 	''
+		lastEventBuffer: 	#(1 111444 107 217 0 0 0 1)
+		lastKeyScanCode: 	31
+		combinedChar: 	nil
+
+
+[:h | 
+ActiveHand := h.
+	h processEvents.
+	ActiveHand := nil] in WorldState>>doOneCycleNowFor:
+	Receiver: a WorldState
+	Arguments and temporary variables: 
+		h: 	a HandMorph(843055104)
+	Receiver's instance variables: 
+		hands: 	an Array(a HandMorph(843055104))
+		viewBox: 	0@0 corner: 1380@692
+		canvas: 	a FormCanvas on: DisplayScreen(1380x692x32)
+		damageRecorder: 	a DamageRecorder
+		stepList: 	a Heap(StepMessage(#onBlinkCursor -> a TextMorphForEditView(104595456...etc...
+		lastStepTime: 	111462
+		lastStepMessage: 	nil
+		lastCycleTime: 	111452
+		alarms: 	a Heap()
+		lastAlarmTime: 	111462
+		menuBuilder: 	a PragmaMenuBuilder
+
+
+Array(SequenceableCollection)>>do:
+	Receiver: an Array(a HandMorph(843055104))
+	Arguments and temporary variables: 
+		aBlock: 	[:h | 
+ActiveHand := h.
+	h processEvents.
+	ActiveHand := nil]
+		index: 	1
+		indexLimiT: 	1
+	Receiver's instance variables: 
+an Array(a HandMorph(843055104))
+
+WorldState>>handsDo:
+	Receiver: a WorldState
+	Arguments and temporary variables: 
+		aBlock: 	[:h | 
+ActiveHand := h.
+	h processEvents.
+	ActiveHand := nil]
+	Receiver's instance variables: 
+		hands: 	an Array(a HandMorph(843055104))
+		viewBox: 	0@0 corner: 1380@692
+		canvas: 	a FormCanvas on: DisplayScreen(1380x692x32)
+		damageRecorder: 	a DamageRecorder
+		stepList: 	a Heap(StepMessage(#onBlinkCursor -> a TextMorphForEditView(104595456...etc...
+		lastStepTime: 	111462
+		lastStepMessage: 	nil
+		lastCycleTime: 	111452
+		alarms: 	a Heap()
+		lastAlarmTime: 	111462
+		menuBuilder: 	a PragmaMenuBuilder
+
+
+WorldState>>doOneCycleNowFor:
+	Receiver: a WorldState
+	Arguments and temporary variables: 
+		aWorld: 	a PasteUpMorph(425197568) [world]
+	Receiver's instance variables: 
+		hands: 	an Array(a HandMorph(843055104))
+		viewBox: 	0@0 corner: 1380@692
+		canvas: 	a FormCanvas on: DisplayScreen(1380x692x32)
+		damageRecorder: 	a DamageRecorder
+		stepList: 	a Heap(StepMessage(#onBlinkCursor -> a TextMorphForEditView(104595456...etc...
+		lastStepTime: 	111462
+		lastStepMessage: 	nil
+		lastCycleTime: 	111452
+		alarms: 	a Heap()
+		lastAlarmTime: 	111462
+		menuBuilder: 	a PragmaMenuBuilder
+
+
+
+--- The full stack ---
+MorphicUIManager>>warningDefaultAction:
+Warning>>defaultAction
+UndefinedObject>>handleSignal:
+Warning(Exception)>>signal
+Warning(Exception)>>signal:
+Warning class(Exception class)>>signal:
+MCVersionLoader(Object)>>notify:
+MCVersionLoader>>warnAboutLosingChangesTo:
+MCVersionLoader>>checkForModifications
+MCVersionLoader>>loadWithNameLike:
+MCVersionLoader>>load
+MCVersionLoader class>>loadVersion:
+MCVersion>>load
+MCMczReader class(MCVersionReader class)>>loadVersionStream:fromDirectory:
+SimpleServiceEntry>>performServiceFor:
+[:stream | theOne performServiceFor: stream] in ExternalDropHandler class>>lookupServiceBasedHandler:
+BlockClosure>>cull:
+BlockClosure>>cull:cull:
+BlockClosure>>cull:cull:cull:
+ExternalDropHandler>>handle:in:dropEvent:
+[handler
+		ifNotNil: [handler
+				handle: stream
+				in: self
+				dropEvent: anEvent]] in PasteUpMorph>>dropFiles:
+BlockClosure>>ensure:
+PasteUpMorph>>dropFiles:
+PasteUpMorph(Morph)>>handleDropFiles:
+DropFilesEvent>>sentTo:
+PasteUpMorph(Morph)>>handleEvent:
+MorphicEventDispatcher>>dispatchDefault:with:
+MorphicEventDispatcher>>dispatchEvent:with:
+PasteUpMorph(Morph)>>processEvent:using:
+PasteUpMorph>>processEvent:using:
+PasteUpMorph(Morph)>>processEvent:
+HandMorph>>sendEvent:focus:clear:
+HandMorph>>sendEvent:focus:
+HandMorph>>handleEvent:
+HandMorph>>processEvents
+[:h | 
+ActiveHand := h.
+	h processEvents.
+	ActiveHand := nil] in WorldState>>doOneCycleNowFor:
+Array(SequenceableCollection)>>do:
+WorldState>>handsDo:
+WorldState>>doOneCycleNowFor:
+ - - - - - - - - - - - - - - -  
+			- - - - - - - - - - - - - - - - - -
+WorldState>>doOneCycleFor:
+PasteUpMorph>>doOneCycle
+[[World doOneCycle.
+	Processor yield.
+	false] whileFalse.
+	nil] in Project class>>spawnNewProcess
+[self value.
+	Processor terminateActive] in BlockClosure>>newProcess
+------------------------------------------------------------
+
