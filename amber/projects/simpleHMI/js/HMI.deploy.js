@@ -392,7 +392,7 @@ smalltalk.method({
 selector: "createSocket",
 fn: function (){
 var self=this;
-socket = new WebSocket("ws://192.168.18.90:9898/broadcast"); ;
+socket = new WebSocket("ws://localhost:9898/broadcast"); ;
 socket.onopen = function() { alert('Connection has been made successfuly');;
 smalltalk.send((typeof socket == 'undefined' ? nil : socket), "_send_", ["@getScheme"]);
 };
@@ -796,7 +796,7 @@ fn: function (){
 var self=this;
 var div=nil;
 (div=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", [smalltalk.send(self, "_workSpaceId", [])]));
-smalltalk.send(self['@field'], "_setSize_value_", [((($receiver = smalltalk.send(div, "_clientWidth", [])).klass === smalltalk.Number) ? $receiver -(20) : smalltalk.send($receiver, "__minus", [(20)])), ((($receiver = smalltalk.send(div, "_clientHeight", [])).klass === smalltalk.Number) ? $receiver -(20) : smalltalk.send($receiver, "__minus", [(20)]))]);
+(($receiver = div) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self['@field'], "_setSize_value_", [((($receiver = smalltalk.send(div, "_clientWidth", [])).klass === smalltalk.Number) ? $receiver -(20) : smalltalk.send($receiver, "__minus", [(20)])), ((($receiver = smalltalk.send(div, "_clientHeight", [])).klass === smalltalk.Number) ? $receiver -(20) : smalltalk.send($receiver, "__minus", [(20)]))]);})() : nil;
 return self;}
 }),
 smalltalk.WebHMI.klass);
