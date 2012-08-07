@@ -192,7 +192,7 @@ Object subclass: #WebHMI
 !WebHMI methodsFor: 'not yet classified'!
 
 createSocket
-<socket = new WebSocket("ws://192.168.18.90:9898/broadcast"); >.
+<socket = new WebSocket("ws://localhost:9898/broadcast"); >.
 <socket.onopen = function() { alert('Connection has been made successfuly');>.
 socket send: '@getScheme'.
 <}>.

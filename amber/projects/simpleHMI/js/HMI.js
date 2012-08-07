@@ -548,7 +548,7 @@ selector: "createSocket",
 category: 'not yet classified',
 fn: function (){
 var self=this;
-socket = new WebSocket("ws://192.168.18.90:9898/broadcast"); ;
+socket = new WebSocket("ws://localhost:9898/broadcast"); ;
 socket.onopen = function() { alert('Connection has been made successfuly');;
 smalltalk.send((typeof socket == 'undefined' ? nil : socket), "_send_", ["@getScheme"]);
 };
@@ -557,7 +557,7 @@ smalltalk.send(self, "_processMessage_", [smalltalk.send((typeof evt == 'undefin
 };;
 return self;},
 args: [],
-source: "createSocket\x0a<socket = new WebSocket(\x22ws://192.168.18.90:9898/broadcast\x22); >.\x0a<socket.onopen = function() { alert('Connection has been made successfuly');>.\x0asocket send: '@getScheme'.\x0a<}>.\x0a<socket.onmessage = function (evt) { >.\x0a    self processMessage: (evt data).\x0a<};>.",
+source: "createSocket\x0a<socket = new WebSocket(\x22ws://localhost:9898/broadcast\x22); >.\x0a<socket.onopen = function() { alert('Connection has been made successfuly');>.\x0asocket send: '@getScheme'.\x0a<}>.\x0a<socket.onmessage = function (evt) { >.\x0a    self processMessage: (evt data).\x0a<};>.",
 messageSends: ["send:", "processMessage:", "data"],
 referencedClasses: []
 }),

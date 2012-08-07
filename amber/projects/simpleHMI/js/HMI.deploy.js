@@ -392,7 +392,7 @@ smalltalk.method({
 selector: "createSocket",
 fn: function (){
 var self=this;
-socket = new WebSocket("ws://192.168.18.90:9898/broadcast"); ;
+socket = new WebSocket("ws://localhost:9898/broadcast"); ;
 socket.onopen = function() { alert('Connection has been made successfuly');;
 smalltalk.send((typeof socket == 'undefined' ? nil : socket), "_send_", ["@getScheme"]);
 };
