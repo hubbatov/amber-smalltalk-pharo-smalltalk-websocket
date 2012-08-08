@@ -353,6 +353,22 @@ smalltalk.HMIelement);
 
 smalltalk.HMIelement.klass.iVarNames = ['collection'];
 smalltalk.addMethod(
+"_clear",
+smalltalk.method({
+selector: "clear",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+(self['@collection']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+return self;},
+args: [],
+source: "clear\x0a\x09collection := Array new.",
+messageSends: ["new"],
+referencedClasses: ["Array"]
+}),
+smalltalk.HMIelement.klass);
+
+smalltalk.addMethod(
 "_elements",
 smalltalk.method({
 selector: "elements",
@@ -558,6 +574,29 @@ smalltalk.send(self, "_processMessage_", [smalltalk.send((typeof evt == 'undefin
 return self;},
 args: [],
 source: "createSocket\x0a<socket = new WebSocket(\x22ws://localhost:9898/broadcast\x22); >.\x0a<socket.onopen = function() { alert('Connection has been made successfuly');>.\x0asocket send: '@getScheme'.\x0a<}>.\x0a<socket.onmessage = function (evt) { >.\x0a    self processMessage: (evt data).\x0a<};>.",
+messageSends: ["send:", "processMessage:", "data"],
+referencedClasses: []
+}),
+smalltalk.WebHMI);
+
+smalltalk.addMethod(
+"_createSocket_",
+smalltalk.method({
+selector: "createSocket:",
+category: 'not yet classified',
+fn: function (aString){
+var self=this;
+socket = new WebSocket(aString); ;
+socket.onopen = function() { alert('Connection has been made successfuly');;
+smalltalk.send((typeof socket == 'undefined' ? nil : socket), "_send_", ["@getScheme"]);
+};
+socket.onmessage = function (evt) { ;
+smalltalk.send(self, "_processMessage_", [smalltalk.send((typeof evt == 'undefined' ? nil : evt), "_data", [])]);
+};;
+socket.onclose = function() { alert('Connection closed');};
+return self;},
+args: ["aString"],
+source: "createSocket: aString\x0a\x0a<socket = new WebSocket(aString); >.\x0a<socket.onopen = function() { alert('Connection has been made successfuly');>.\x0asocket send: '@getScheme'.\x0a<}>.\x0a<socket.onmessage = function (evt) { >.\x0a    self processMessage: (evt data).\x0a<};>.\x0a<socket.onclose = function() { alert('Connection closed');}>",
 messageSends: ["send:", "processMessage:", "data"],
 referencedClasses: []
 }),
@@ -798,13 +837,18 @@ selector: "start",
 category: 'not yet classified',
 fn: function (){
 var self=this;
+var adress=nil;
+var connect=nil;
 smalltalk.send((smalltalk.WebHMI || WebHMI), "_field_", [smalltalk.send(self, "_prepareWorkField_", [smalltalk.send((smalltalk.WebHMI || WebHMI), "_workSpaceId", [])])]);
-smalltalk.send(self, "_createSocket", []);
+(adress=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["ServerAddress"]));
+(($receiver = adress) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_createSocket_", [smalltalk.send(smalltalk.send("ws://", "__comma", [smalltalk.send(adress, "_value", [])]), "__comma", ["/broadcast"])]);})() : nil;
+(connect=smalltalk.send("#ConnectButton", "_asJQuery", []));
+smalltalk.send(connect, "_click_", [(function(){socket.close();;smalltalk.send((smalltalk.HMIelement || HMIelement), "_clear", []);return smalltalk.send(self, "_start", []);})]);
 return self;},
 args: [],
-source: "start\x0aWebHMI field: ( self prepareWorkField: (WebHMI workSpaceId)).\x0aself createSocket.",
-messageSends: ["field:", "prepareWorkField:", "workSpaceId", "createSocket"],
-referencedClasses: ["WebHMI"]
+source: "start\x0a|adress connect|\x0a\x0aWebHMI field: ( self prepareWorkField: (WebHMI workSpaceId)).\x0aadress := document getElementById: 'ServerAddress'.\x0aadress ifNotNil: [\x0a         self createSocket: 'ws://', adress value,'/broadcast'.].\x0a\x0aconnect := '#ConnectButton' asJQuery.\x0aconnect click: [ \x0a\x09<socket.close();>.\x0a\x09HMIelement clear. \x0a\x09self start.]",
+messageSends: ["field:", "prepareWorkField:", "workSpaceId", "getElementById:", "ifNotNil:", "createSocket:", ",", "value", "asJQuery", "click:", "clear", "start"],
+referencedClasses: ["WebHMI", "HMIelement"]
 }),
 smalltalk.WebHMI);
 

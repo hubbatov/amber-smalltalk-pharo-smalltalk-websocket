@@ -253,6 +253,17 @@ smalltalk.HMIelement);
 
 smalltalk.HMIelement.klass.iVarNames = ['collection'];
 smalltalk.addMethod(
+"_clear",
+smalltalk.method({
+selector: "clear",
+fn: function (){
+var self=this;
+(self['@collection']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+return self;}
+}),
+smalltalk.HMIelement.klass);
+
+smalltalk.addMethod(
 "_elements",
 smalltalk.method({
 selector: "elements",
@@ -399,6 +410,24 @@ smalltalk.send((typeof socket == 'undefined' ? nil : socket), "_send_", ["@getSc
 socket.onmessage = function (evt) { ;
 smalltalk.send(self, "_processMessage_", [smalltalk.send((typeof evt == 'undefined' ? nil : evt), "_data", [])]);
 };;
+return self;}
+}),
+smalltalk.WebHMI);
+
+smalltalk.addMethod(
+"_createSocket_",
+smalltalk.method({
+selector: "createSocket:",
+fn: function (aString){
+var self=this;
+socket = new WebSocket(aString); ;
+socket.onopen = function() { alert('Connection has been made successfuly');;
+smalltalk.send((typeof socket == 'undefined' ? nil : socket), "_send_", ["@getScheme"]);
+};
+socket.onmessage = function (evt) { ;
+smalltalk.send(self, "_processMessage_", [smalltalk.send((typeof evt == 'undefined' ? nil : evt), "_data", [])]);
+};;
+socket.onclose = function() { alert('Connection closed');};
 return self;}
 }),
 smalltalk.WebHMI);
@@ -572,8 +601,13 @@ smalltalk.method({
 selector: "start",
 fn: function (){
 var self=this;
+var adress=nil;
+var connect=nil;
 smalltalk.send((smalltalk.WebHMI || WebHMI), "_field_", [smalltalk.send(self, "_prepareWorkField_", [smalltalk.send((smalltalk.WebHMI || WebHMI), "_workSpaceId", [])])]);
-smalltalk.send(self, "_createSocket", []);
+(adress=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["ServerAddress"]));
+(($receiver = adress) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_createSocket_", [smalltalk.send(smalltalk.send("ws://", "__comma", [smalltalk.send(adress, "_value", [])]), "__comma", ["/broadcast"])]);})() : nil;
+(connect=smalltalk.send("#ConnectButton", "_asJQuery", []));
+smalltalk.send(connect, "_click_", [(function(){socket.close();;smalltalk.send((smalltalk.HMIelement || HMIelement), "_clear", []);return smalltalk.send(self, "_start", []);})]);
 return self;}
 }),
 smalltalk.WebHMI);

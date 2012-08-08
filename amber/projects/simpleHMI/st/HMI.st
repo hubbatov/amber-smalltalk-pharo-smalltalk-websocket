@@ -126,6 +126,10 @@ HMIelement class instanceVariableNames: 'collection'!
 
 !HMIelement class methodsFor: 'not yet classified'!
 
+clear
+	collection := Array new.
+!
+
 elements
 	collection ifNil: [ collection := Array new ].
 	^collection
@@ -199,6 +203,18 @@ socket send: '@getScheme'.
 <socket.onmessage = function (evt) { >.
     self processMessage: (evt data).
 <};>.
+!
+
+createSocket: aString
+
+<socket = new WebSocket(aString); >.
+<socket.onopen = function() { alert('Connection has been made successfuly');>.
+socket send: '@getScheme'.
+<}>.
+<socket.onmessage = function (evt) { >.
+    self processMessage: (evt data).
+<};>.
+<socket.onclose = function() { alert('Connection closed');}>
 !
 
 elements 
@@ -275,8 +291,18 @@ div innerHTML: (WebHMI removeFormHTML)
 !
 
 start
+|adress connect|
+
 WebHMI field: ( self prepareWorkField: (WebHMI workSpaceId)).
-self createSocket.
+adress := document getElementById: 'ServerAddress'.
+adress ifNotNil: [
+         self createSocket: 'ws://', adress value,'/broadcast'.].
+
+connect := '#ConnectButton' asJQuery.
+connect click: [ 
+	<socket.close();>.
+	HMIelement clear. 
+	self start.]
 !
 
 startAdmin
