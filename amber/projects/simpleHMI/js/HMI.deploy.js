@@ -258,7 +258,7 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
-smalltalk.send(self['@collection'], "_do_", [(function(each){return smalltalk.send((smalltalk.HMIelement || HMIelement), "_removeElement_", [each]);})]);
+smalltalk.send(self['@collection'], "_do_", [(function(each){smalltalk.send((smalltalk.HMIelement || HMIelement), "_removeElement_", [each]);return (function($rec){smalltalk.send($rec, "_show_", [smalltalk.send("Remove ", "__comma", [smalltalk.send(each, "_elName", [])])]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));})]);
 return self;}
 }),
 smalltalk.HMIelement.klass);

@@ -359,12 +359,12 @@ selector: "clear",
 category: 'not yet classified',
 fn: function (){
 var self=this;
-smalltalk.send(self['@collection'], "_do_", [(function(each){return smalltalk.send((smalltalk.HMIelement || HMIelement), "_removeElement_", [each]);})]);
+smalltalk.send(self['@collection'], "_do_", [(function(each){smalltalk.send((smalltalk.HMIelement || HMIelement), "_removeElement_", [each]);return (function($rec){smalltalk.send($rec, "_show_", [smalltalk.send("Remove ", "__comma", [smalltalk.send(each, "_elName", [])])]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));})]);
 return self;},
 args: [],
-source: "clear\x0a\x09collection do: [ :each |  HMIelement removeElement: each  ]",
-messageSends: ["do:", "removeElement:"],
-referencedClasses: ["HMIelement"]
+source: "clear\x0a\x09collection do: [ :each |  HMIelement removeElement: each. Transcript show: 'Remove ', each elName; cr].\x0a\x09",
+messageSends: ["do:", "removeElement:", "show:", ",", "elName", "cr"],
+referencedClasses: ["HMIelement", "Transcript"]
 }),
 smalltalk.HMIelement.klass);
 
@@ -846,7 +846,7 @@ smalltalk.send((smalltalk.WebHMI || WebHMI), "_field_", [smalltalk.send(self, "_
 smalltalk.send(connect, "_click_", [(function(){smalltalk.send((smalltalk.HMIelement || HMIelement), "_clear", []);return smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_new", []), "_startAdmin", []);})]);
 return self;},
 args: [],
-source: "start\x0a|adress connect|\x0a\x0aWebHMI field: ( self prepareWorkField: (WebHMI workSpaceId)).\x0aadress := document getElementById: 'ServerAddress'.\x0aadress ifNotNil: [\x0a         self createSocket: 'ws://', adress value,'/broadcast'.].\x0a\x0aconnect := '#ConnectButton' asJQuery.\x0aconnect click: [ \x0a\x09HMIelement clear.\x0a\x09WebHMI new startAdmin]",
+source: "start\x0a|adress connect|\x0a\x0aWebHMI field: ( self prepareWorkField: (WebHMI workSpaceId)).\x0aadress := document getElementById: 'ServerAddress'.\x0aadress ifNotNil: [\x0a         self createSocket: 'ws://', adress value,'/broadcast'.].\x0a\x0aconnect := '#ConnectButton' asJQuery.\x0aconnect click: [ \x0a\x09HMIelement clear.\x0a\x09WebHMI new startAdmin. ]",
 messageSends: ["field:", "prepareWorkField:", "workSpaceId", "getElementById:", "ifNotNil:", "createSocket:", ",", "value", "asJQuery", "click:", "clear", "startAdmin", "new"],
 referencedClasses: ["WebHMI", "HMIelement"]
 }),

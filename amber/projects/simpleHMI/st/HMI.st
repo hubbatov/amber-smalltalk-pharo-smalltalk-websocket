@@ -127,7 +127,7 @@ HMIelement class instanceVariableNames: 'collection'!
 !HMIelement class methodsFor: 'not yet classified'!
 
 clear
-	collection do: [ :each |  HMIelement removeElement: each  ]
+	collection do: [ :each |  HMIelement removeElement: each. Transcript show: 'Remove ', each elName; cr].
 !
 
 elements
@@ -301,7 +301,7 @@ adress ifNotNil: [
 connect := '#ConnectButton' asJQuery.
 connect click: [ 
 	HMIelement clear.
-	WebHMI new startAdmin]
+	WebHMI new startAdmin. ]
 !
 
 startAdmin
