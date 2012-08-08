@@ -258,7 +258,7 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
-(self['@collection']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+smalltalk.send(self['@collection'], "_do_", [(function(each){return smalltalk.send((smalltalk.HMIelement || HMIelement), "_removeElement_", [each]);})]);
 return self;}
 }),
 smalltalk.HMIelement.klass);
@@ -607,7 +607,7 @@ smalltalk.send((smalltalk.WebHMI || WebHMI), "_field_", [smalltalk.send(self, "_
 (adress=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["ServerAddress"]));
 (($receiver = adress) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_createSocket_", [smalltalk.send(smalltalk.send("ws://", "__comma", [smalltalk.send(adress, "_value", [])]), "__comma", ["/broadcast"])]);})() : nil;
 (connect=smalltalk.send("#ConnectButton", "_asJQuery", []));
-smalltalk.send(connect, "_click_", [(function(){socket.close();;smalltalk.send((smalltalk.HMIelement || HMIelement), "_clear", []);return smalltalk.send(self, "_start", []);})]);
+smalltalk.send(connect, "_click_", [(function(){smalltalk.send((smalltalk.HMIelement || HMIelement), "_clear", []);return smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_new", []), "_startAdmin", []);})]);
 return self;}
 }),
 smalltalk.WebHMI);

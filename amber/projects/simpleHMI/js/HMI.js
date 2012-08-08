@@ -359,12 +359,12 @@ selector: "clear",
 category: 'not yet classified',
 fn: function (){
 var self=this;
-(self['@collection']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+smalltalk.send(self['@collection'], "_do_", [(function(each){return smalltalk.send((smalltalk.HMIelement || HMIelement), "_removeElement_", [each]);})]);
 return self;},
 args: [],
-source: "clear\x0a\x09collection := Array new.",
-messageSends: ["new"],
-referencedClasses: ["Array"]
+source: "clear\x0a\x09collection do: [ :each |  HMIelement removeElement: each  ]",
+messageSends: ["do:", "removeElement:"],
+referencedClasses: ["HMIelement"]
 }),
 smalltalk.HMIelement.klass);
 
@@ -843,11 +843,11 @@ smalltalk.send((smalltalk.WebHMI || WebHMI), "_field_", [smalltalk.send(self, "_
 (adress=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["ServerAddress"]));
 (($receiver = adress) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_createSocket_", [smalltalk.send(smalltalk.send("ws://", "__comma", [smalltalk.send(adress, "_value", [])]), "__comma", ["/broadcast"])]);})() : nil;
 (connect=smalltalk.send("#ConnectButton", "_asJQuery", []));
-smalltalk.send(connect, "_click_", [(function(){socket.close();;smalltalk.send((smalltalk.HMIelement || HMIelement), "_clear", []);return smalltalk.send(self, "_start", []);})]);
+smalltalk.send(connect, "_click_", [(function(){smalltalk.send((smalltalk.HMIelement || HMIelement), "_clear", []);return smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_new", []), "_startAdmin", []);})]);
 return self;},
 args: [],
-source: "start\x0a|adress connect|\x0a\x0aWebHMI field: ( self prepareWorkField: (WebHMI workSpaceId)).\x0aadress := document getElementById: 'ServerAddress'.\x0aadress ifNotNil: [\x0a         self createSocket: 'ws://', adress value,'/broadcast'.].\x0a\x0aconnect := '#ConnectButton' asJQuery.\x0aconnect click: [ \x0a\x09<socket.close();>.\x0a\x09HMIelement clear. \x0a\x09self start.]",
-messageSends: ["field:", "prepareWorkField:", "workSpaceId", "getElementById:", "ifNotNil:", "createSocket:", ",", "value", "asJQuery", "click:", "clear", "start"],
+source: "start\x0a|adress connect|\x0a\x0aWebHMI field: ( self prepareWorkField: (WebHMI workSpaceId)).\x0aadress := document getElementById: 'ServerAddress'.\x0aadress ifNotNil: [\x0a         self createSocket: 'ws://', adress value,'/broadcast'.].\x0a\x0aconnect := '#ConnectButton' asJQuery.\x0aconnect click: [ \x0a\x09HMIelement clear.\x0a\x09WebHMI new startAdmin]",
+messageSends: ["field:", "prepareWorkField:", "workSpaceId", "getElementById:", "ifNotNil:", "createSocket:", ",", "value", "asJQuery", "click:", "clear", "startAdmin", "new"],
 referencedClasses: ["WebHMI", "HMIelement"]
 }),
 smalltalk.WebHMI);
