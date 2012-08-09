@@ -127,7 +127,7 @@ HMIelement class instanceVariableNames: 'collection'!
 !HMIelement class methodsFor: 'not yet classified'!
 
 clear
-	collection do: [ :each |  HMIelement removeElement: each. Transcript show: 'Remove ', each elName; cr].
+	self elements do: [ :each |  HMIelement removeElement: each ].
 !
 
 elements
@@ -190,7 +190,7 @@ types
 ! !
 
 Object subclass: #WebHMI
-	instanceVariableNames: 'field elements'
+	instanceVariableNames: 'field elements socketCreated'
 	package: 'HMI'!
 
 !WebHMI methodsFor: 'not yet classified'!
@@ -214,7 +214,8 @@ socket send: '@getScheme'.
 <socket.onmessage = function (evt) { >.
     self processMessage: (evt data).
 <};>.
-<socket.onclose = function() { alert('Connection closed');}>
+<socket.onclose = function() { alert('Connection closed');}>.
+socketCreated := true.
 !
 
 elements 
@@ -236,7 +237,7 @@ div := document getElementById: aId.
 processInfoMessage: msg
 |tmp|
 tmp := (CommandExecutor doIt: (msg replace: '@info ' with: '')).
-(self elementsContains: ( tmp elName )) ifFalse: [ elements add: (tmp usingSocket: socket ; drawOn: (WebHMI field))]
+(self elementsContains: ( tmp elName )) ifFalse: [ HMIelement elements add: (tmp usingSocket: socket ; drawOn: (WebHMI field))]
 !
 
 processMessage: msg
@@ -272,6 +273,10 @@ processSwitchedMessage: msg
 CommandExecutor doIt: (msg replace: '@switched ' with: '')
 !
 
+reconnectAdmin
+	self start.
+!
+
 showAddForm
 |div addButton|
 div := document getElementById: 'sidebar'.
@@ -291,21 +296,17 @@ div innerHTML: (WebHMI removeFormHTML)
 !
 
 start
-|adress connect|
+|adress |
 
 WebHMI field: ( self prepareWorkField: (WebHMI workSpaceId)).
-adress := document getElementById: 'ServerAddress'.
-adress ifNotNil: [
-         self createSocket: 'ws://', adress value,'/broadcast'.].
 
-connect := '#ConnectButton' asJQuery.
-connect click: [ 
-	HMIelement clear.
-	WebHMI new startAdmin. ]
+adress := document getElementById: 'ServerAddress'.
+	adress ifNotNil: [
+         	self createSocket: 'ws://', adress value,'/broadcast'. adress hidden: true.].
 !
 
 startAdmin
-|addButt remButt clearButt chButt|
+|addButt remButt clearButt chButt connect|
 
 WebHMI workSpaceId: 'workspace'.
 WebHMI enableMoving: true.
@@ -315,7 +316,9 @@ remButt := '#delItem' asJQuery.
 remButt click: [  self showRemForm ].
 chButt := '#chItem' asJQuery.
 chButt click: [ self showChangeForm ].
-self start.
+
+connect := '#ConnectButton' asJQuery.
+connect click: [ self reconnectAdmin. connect hide. ].
 !
 
 startClient
@@ -332,10 +335,13 @@ WebHMI class instanceVariableNames: 'currentItem field scale moveAccess paperId'
 addFormHTML
 ^
 '<form>',
+	'<p>Item name:',
  	'<input id="itemName" class=''inputField'' type="text" value=""><br>',
+	'<p>Item type:',
 	'<select id="itemType" class=''inputField'' value="">',
 		'<option id="1" value="server">Server</option>',
 		'<option id="2" value="workstation">Workstation</option>',
+		'<option id="3" value="router">Router</option>',
 	'</select><br>',
 	'<input id="add" class=''actionButton''  type="button" value="" onclick=" smalltalk.WebHMI._addItem()">',
 '</form>',
@@ -356,13 +362,13 @@ itemName value > 0 ifTrue: [
 changeFormHTML
 ^
 '<form>',
+	'<p>Item name:',
 	'<input id="itemName" class=''inputField'' type="text" value=""><br>',
-	'<select id="itemType" class=''inputField'' value="">',
-		'<option id="1" value="server">Server</option>',
-		'<option id="2" value="workstation">Workstation</option>',
-	'</select><br>',
+	'<p>Item type name:',
 	'<input id="itemTypeName" class=''inputField'' type="text" value=""><br>',
+	'<p>Item switched on value:',
 	'<input id="itemOnPath" class=''inputField'' type="text" value=""><br>',
+	'<p>Item switched off value:',
 	'<input id="itemOffPath" class=''inputField'' type="text" value=""><br>',
 	'<input id="change" class=''actionButton'' type="button" value='''' onclick=" smalltalk.WebHMI._changeItem()">',
 '</form>',
@@ -379,11 +385,17 @@ offPic := document getElementById: 'itemOffPath'.
 div := document getElementById: 'sidebar'.
 
 itemName value size > 0 ifTrue: [
+	itemType value size > 0 ifTrue: [
+		onPic value size > 0 ifTrue: [
+			offPic value size > 0 ifTrue: [
 
-socket send: '@change #(WebHMIElement elementFromCollection: ' , '''' , currentItem elName, '''', ') elName:  ', '''' ,itemName value, '''', '; elType: ((WebHMIElementType new) typeName: ', '''' , typeName value,'''',  
-			'; imageOn: ', '''', onPic value, '''', '; imageOff: ', '''', offPic value, '''', ')'.
+				socket send: '@change #(WebHMIElement elementFromCollection: ' , '''' , currentItem elName, '''', ') elName:  ', '''' ,itemName value, '''', '; elType: ((WebHMIElementType new) typeName: ', '''' , typeName value,'''',  
+						'; imageOn: ', '''', onPic value, '''', '; imageOff: ', '''', offPic value, '''', ')'.
 
-div innerHTML: ( div innerHTML ,'<br>Changed Item ', itemName value, ' ' ,itemType value ) ]
+				div innerHTML: ( div innerHTML ,'<br>Changed Item ', itemName value, ' ' ,itemType value ) ]
+			ifFalse: [ window alert: 'Please check out empty fields' ]]
+		ifFalse: [ window alert: 'Please check out empty fields' ]] 
+	ifFalse: [ window alert: 'Please check out empty fields' ]]
 ifFalse: [ window alert: 'Please check out empty fields' ]
 !
 
@@ -449,7 +461,8 @@ removeFormHTML
 resize
 |div|
 div := document getElementById: (self workSpaceId).
-div ifNotNil: [ field setSize: ( div clientWidth - 20 ) value: ( div clientHeight -  20) ]
+div ifNotNil: [ 
+field ifNotNil: [field setSize: ( div clientWidth - 20 ) value: ( div clientHeight -  20) ]]
 !
 
 scale
@@ -460,24 +473,29 @@ scale
 scale: aVal
   | p |
   p := document getElementById: 'scaleVal'.
-  p ifNotNil: [ p innerHTML: 'Scale ', (((self field width) / ((self field width) + aVal)) * 100 ), '%' ].
+  p ifNotNil: [ field ifNotNil: [p innerHTML: 'Scale ', (((self field width) / ((self field width) + aVal)) * 100 ), '%' ]].
   scale := aVal
 !
 
 setHeight: aHeight
 |div|
 div := document getElementById: (self workSpaceId).
-(div clientHeight - 20) > aHeight ifTrue: [ field setSize: ( field width) value: (div clientHeight - 20) ] ifFalse: [ field setSize: ( field width) value: aHeight ]
+div ifNotNil: [
+field ifNotNil:[
+(div clientHeight - 20) > aHeight ifTrue: [ field setSize: ( field width) value: (div clientHeight - 20) ] ifFalse: [ field setSize: ( field width) value: aHeight ]]]
 !
 
 setViewBox: x atY: y width: w height: h
-	field setViewBox: x value: y  width:((field width) + w) height: ((field height) + h) fl: false.
+	field ifNotNil:[
+	field setViewBox: x value: y  width:((field width) + w) height: ((field height) + h) fl: false.]
 !
 
 setWidth: aWidth
 |div|
 div := document getElementById: (self workSpaceId).
-(div clientWidth - 20) > aWidth ifTrue: [ field setSize: (div clientWidth - 20) value:(field height ) ] ifFalse: [ field setSize: aWidth value:(field height ) ]
+div ifNotNil: [
+field ifNotNil: [
+(div clientWidth - 20) > aWidth ifTrue: [ field setSize: (div clientWidth - 20) value:(field height ) ] ifFalse: [ field setSize: aWidth value:(field height ) ]]]
 !
 
 workSpaceId
@@ -490,16 +508,18 @@ workSpaceId: aId
 !
 
 zoomIn
+	field ifNotNil: [
 	self scale: ( self scale + 20 ).
 	self setViewBox: 0 atY: 0 width: (self scale) height: (self scale).
 	self setHeight: (self field height - 20).
-	self setWidth: (self field width - 20).
+	self setWidth: (self field width - 20).]
 !
 
 zoomOut
+	field ifNotNil:[
 	self scale: ( self scale - 20 ).
 	self setViewBox: 0 atY: 0 width: (self scale) height: (self scale).
 	self setHeight: (self field height + 20).
-	self setWidth: (self field width + 20).
+	self setWidth: (self field width + 20).]
 ! !
 

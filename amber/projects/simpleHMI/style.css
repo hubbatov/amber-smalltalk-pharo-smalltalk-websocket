@@ -85,13 +85,15 @@ h2{
 .actionButton{
     width: 64px;
     height: 64px;
-    bottom: 100px;
+    bottom: 150px;
     right: 50px;
     position: absolute;
     background-color: rgba(255,255,255,0);
+    border: none;
 }
 .actionButton:hover{
-    background-color: rgba(128,128,255,0);
+    background-color: rgba(128,128,255,5);
+    border-radius: 10px;
 }
 .inputField{
     width: 100%;
