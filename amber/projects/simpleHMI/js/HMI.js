@@ -56,7 +56,7 @@ referencedClasses: []
 smalltalk.CommandExecutor.klass);
 
 
-smalltalk.addClass('HMIelement', smalltalk.Object, ['state', 'elName', 'elType', 'element', 'xPos', 'yPos', 'text', 'elPicture', 'elPictureOn', 'elPictureOff', 'params', 'param1'], 'HMI');
+smalltalk.addClass('HMIelement', smalltalk.Object, ['state', 'elName', 'elType', 'element', 'xPos', 'yPos', 'text', 'elPicture', 'elPictureOn', 'elPictureOff', 'params', 'param1', 'usage'], 'HMI');
 smalltalk.addMethod(
 "_drawOn_",
 smalltalk.method({
@@ -66,14 +66,16 @@ fn: function (aRaphaelPaper){
 var self=this;
 (self['@element']=smalltalk.send(aRaphaelPaper, "_image_onX_onY_w_h_", [smalltalk.send(self, "_elPicture", []), smalltalk.send(self, "_xPos", []), smalltalk.send(self, "_yPos", []), (128), (128)]));
 (self['@text']=smalltalk.send(aRaphaelPaper, "_text_onY_text_", [((($receiver = smalltalk.send(self, "_xPos", [])).klass === smalltalk.Number) ? $receiver +(64) : smalltalk.send($receiver, "__plus", [(64)])), ((($receiver = smalltalk.send(self, "_yPos", [])).klass === smalltalk.Number) ? $receiver +(140) : smalltalk.send($receiver, "__plus", [(140)])), smalltalk.send(self, "_elName", [])]));
+(self['@usage']=smalltalk.send(aRaphaelPaper, "_text_onY_text_", [((($receiver = smalltalk.send(self, "_xPos", [])).klass === smalltalk.Number) ? $receiver +(64) : smalltalk.send($receiver, "__plus", [(64)])), ((($receiver = smalltalk.send(self, "_yPos", [])).klass === smalltalk.Number) ? $receiver +(160) : smalltalk.send($receiver, "__plus", [(160)])), ""]));
+smalltalk.send(self, "_state_", [smalltalk.send(self, "_state", [])]);
 smalltalk.send(self['@element'], "_attr_value_", ["opacity", (0.8)]);
 ((($receiver = ((($receiver = ((($receiver = smalltalk.send(self['@element'], "_attr_", ["y"])).klass === smalltalk.Number) ? $receiver +(192) : smalltalk.send($receiver, "__plus", [(192)]))).klass === smalltalk.Number) ? $receiver >smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_height", []) : smalltalk.send($receiver, "__gt", [smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_height", [])]))).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.WebHMI || WebHMI), "_setHeight_", [((($receiver = smalltalk.send(self['@element'], "_attr_", ["y"])).klass === smalltalk.Number) ? $receiver +(192) : smalltalk.send($receiver, "__plus", [(192)]))]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send((smalltalk.WebHMI || WebHMI), "_setHeight_", [((($receiver = smalltalk.send(self['@element'], "_attr_", ["y"])).klass === smalltalk.Number) ? $receiver +(192) : smalltalk.send($receiver, "__plus", [(192)]))]);})]));
 ((($receiver = ((($receiver = ((($receiver = smalltalk.send(self['@element'], "_attr_", ["x"])).klass === smalltalk.Number) ? $receiver +(128) : smalltalk.send($receiver, "__plus", [(128)]))).klass === smalltalk.Number) ? $receiver >smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_width", []) : smalltalk.send($receiver, "__gt", [smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_width", [])]))).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.WebHMI || WebHMI), "_setWidth_", [((($receiver = smalltalk.send(self['@element'], "_attr_", ["x"])).klass === smalltalk.Number) ? $receiver +(128) : smalltalk.send($receiver, "__plus", [(128)]))]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send((smalltalk.WebHMI || WebHMI), "_setWidth_", [((($receiver = smalltalk.send(self['@element'], "_attr_", ["x"])).klass === smalltalk.Number) ? $receiver +(128) : smalltalk.send($receiver, "__plus", [(128)]))]);})]));
 ((($receiver = smalltalk.send((smalltalk.WebHMI || WebHMI), "_enableMoving", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_setActions", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_setActions", []);})]));
 return self;},
 args: ["aRaphaelPaper"],
-source: "drawOn: aRaphaelPaper\x0a\x09element := aRaphaelPaper image: ( self elPicture ) onX: self xPos onY: self yPos w: 128 h: 128.\x0a\x09text := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 140) text: self elName.\x0a        element attr: 'opacity' value: 0.8.\x0a\x09((element attr: 'y') + 192) > ( WebHMI field height ) ifTrue: [ WebHMI setHeight: ( (element attr: 'y') + 192 ) ].\x0a\x09((element attr: 'x') + 128) > ( WebHMI field width ) ifTrue: [ WebHMI setWidth: ( (element attr: 'x') + 128 ) ].\x0a\x09WebHMI enableMoving ifTrue: [ self setActions ].",
-messageSends: ["image:onX:onY:w:h:", "elPicture", "xPos", "yPos", "text:onY:text:", "+", "elName", "attr:value:", "ifTrue:", ">", "attr:", "height", "field", "setHeight:", "width", "setWidth:", "enableMoving", "setActions"],
+source: "drawOn: aRaphaelPaper\x0a\x09element := aRaphaelPaper image: ( self elPicture ) onX: self xPos onY: self yPos w: 128 h: 128.\x0a\x09text := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 140) text: self elName.\x0a \x09usage := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 160) text: ''.\x0a\x09self state: self state.\x0a        element attr: 'opacity' value: 0.8.\x0a\x09((element attr: 'y') + 192) > ( WebHMI field height ) ifTrue: [ WebHMI setHeight: ( (element attr: 'y') + 192 ) ].\x0a\x09((element attr: 'x') + 128) > ( WebHMI field width ) ifTrue: [ WebHMI setWidth: ( (element attr: 'x') + 128 ) ].\x0a\x09WebHMI enableMoving ifTrue: [ self setActions ].",
+messageSends: ["image:onX:onY:w:h:", "elPicture", "xPos", "yPos", "text:onY:text:", "+", "elName", "state:", "state", "attr:value:", "ifTrue:", ">", "attr:", "height", "field", "setHeight:", "width", "setWidth:", "enableMoving", "setActions"],
 referencedClasses: ["WebHMI"]
 }),
 smalltalk.HMIelement);
@@ -227,10 +229,11 @@ category: 'not yet classified',
 fn: function (aState){
 var self=this;
 (self['@state']=aState);
+(($receiver = self['@usage']) != nil && $receiver != undefined) ? (function(){return ((($receiver = smalltalk.send(smalltalk.send(self, "_state", []), "__eq", ["on"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@usage'], "_attr_value_", ["text", "Loaded on: 0% "]);})() : (function(){return smalltalk.send(self['@usage'], "_attr_value_", ["text", "Is switched off"]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@usage'], "_attr_value_", ["text", "Loaded on: 0% "]);}), (function(){return smalltalk.send(self['@usage'], "_attr_value_", ["text", "Is switched off"]);})]));})() : nil;
 return self;},
 args: ["aState"],
-source: "state: aState\x0a\x09state := aState",
-messageSends: [],
+source: "state: aState\x0a\x09state := aState.\x0a\x09usage ifNotNil:[ \x0a\x09self state = 'on' \x0a\x09\x09ifTrue: [ usage attr: 'text' value: 'Loaded on: 0% ' ] \x0a\x09\x09ifFalse: [ usage attr: 'text' value: 'Is switched off']]",
+messageSends: ["ifNotNil:", "ifTrue:ifFalse:", "=", "state", "attr:value:"],
 referencedClasses: []
 }),
 smalltalk.HMIelement);
@@ -246,7 +249,7 @@ var self=this;
 smalltalk.send(self['@element'], "_attr_value_", ["src", smalltalk.send(self, "_elPicture", [])]);
 return self;},
 args: [],
-source: "switch\x0a\x09self state = 'on' ifTrue: [ self state: 'off' ] ifFalse: [ self state: 'on' ].\x0a\x09element attr: 'src' value: ( self elPicture )",
+source: "switch\x0a\x09self state = 'on' ifTrue: [ self state: 'off'. ] ifFalse: [ self state: 'on'.].\x0a\x09element attr: 'src' value: ( self elPicture )",
 messageSends: ["ifTrue:ifFalse:", "=", "state", "state:", "attr:value:", "elPicture"],
 referencedClasses: []
 }),
@@ -264,6 +267,38 @@ return self;},
 args: [],
 source: "text\x0a\x09^text",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HMIelement);
+
+smalltalk.addMethod(
+"_usage",
+smalltalk.method({
+selector: "usage",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return self['@usage'];
+return self;},
+args: [],
+source: "usage\x0a\x09^usage",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HMIelement);
+
+smalltalk.addMethod(
+"_usage_",
+smalltalk.method({
+selector: "usage:",
+category: 'not yet classified',
+fn: function (anInteger){
+var self=this;
+(($receiver = self['@usage']) != nil && $receiver != undefined) ? (function(){return ((($receiver = smalltalk.send(smalltalk.send(self, "_state", []), "__eq", ["on"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@usage'], "_attr_value_", ["text", smalltalk.send(smalltalk.send("Loaded on: ", "__comma", [smalltalk.send(anInteger, "_asString", [])]), "__comma", ["%"])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@usage'], "_attr_value_", ["text", smalltalk.send(smalltalk.send("Loaded on: ", "__comma", [smalltalk.send(anInteger, "_asString", [])]), "__comma", ["%"])]);})]));})() : nil;
+return self;},
+args: ["anInteger"],
+source: "usage: anInteger\x0a\x09usage ifNotNil: [ self state = 'on' ifTrue: [ usage attr: 'text' value: 'Loaded on: ', anInteger asString, '%' ]]",
+messageSends: ["ifNotNil:", "ifTrue:", "=", "state", "attr:value:", ",", "asString"],
 referencedClasses: []
 }),
 smalltalk.HMIelement);
@@ -308,10 +343,10 @@ category: 'not yet classified',
 fn: function (aPos){
 var self=this;
 (self['@xPos']=aPos);
-(($receiver = self['@element']) != nil && $receiver != undefined) ? (function(){smalltalk.send(self['@element'], "_attr_value_", ["x", self['@xPos']]);return smalltalk.send(self['@text'], "_attr_value_", ["x", ((($receiver = self['@xPos']).klass === smalltalk.Number) ? $receiver +(64) : smalltalk.send($receiver, "__plus", [(64)]))]);})() : nil;
+(($receiver = self['@element']) != nil && $receiver != undefined) ? (function(){smalltalk.send(self['@element'], "_attr_value_", ["x", self['@xPos']]);smalltalk.send(self['@text'], "_attr_value_", ["x", ((($receiver = self['@xPos']).klass === smalltalk.Number) ? $receiver +(64) : smalltalk.send($receiver, "__plus", [(64)]))]);return smalltalk.send(self['@usage'], "_attr_value_", ["x", ((($receiver = self['@xPos']).klass === smalltalk.Number) ? $receiver +(64) : smalltalk.send($receiver, "__plus", [(64)]))]);})() : nil;
 return self;},
 args: ["aPos"],
-source: "xPos: aPos\x0a\x09xPos := aPos.\x0a        element ifNotNil: [ element attr: 'x' value: xPos. text attr: 'x' value: xPos + 64]",
+source: "xPos: aPos\x0a\x09xPos := aPos.\x0a        element ifNotNil: [ element attr: 'x' value: xPos. text attr: 'x' value: xPos + 64. usage attr: 'x' value: xPos + 64.]",
 messageSends: ["ifNotNil:", "attr:value:", "+"],
 referencedClasses: []
 }),
@@ -341,10 +376,10 @@ category: 'not yet classified',
 fn: function (aPos){
 var self=this;
 (self['@yPos']=aPos);
-(($receiver = self['@element']) != nil && $receiver != undefined) ? (function(){smalltalk.send(self['@element'], "_attr_value_", ["y", self['@yPos']]);return smalltalk.send(self['@text'], "_attr_value_", ["y", ((($receiver = self['@yPos']).klass === smalltalk.Number) ? $receiver +(140) : smalltalk.send($receiver, "__plus", [(140)]))]);})() : nil;
+(($receiver = self['@element']) != nil && $receiver != undefined) ? (function(){smalltalk.send(self['@element'], "_attr_value_", ["y", self['@yPos']]);smalltalk.send(self['@text'], "_attr_value_", ["y", ((($receiver = self['@yPos']).klass === smalltalk.Number) ? $receiver +(140) : smalltalk.send($receiver, "__plus", [(140)]))]);return smalltalk.send(self['@usage'], "_attr_value_", ["y", ((($receiver = self['@yPos']).klass === smalltalk.Number) ? $receiver +(160) : smalltalk.send($receiver, "__plus", [(160)]))]);})() : nil;
 return self;},
 args: ["aPos"],
-source: "yPos: aPos\x0a\x09yPos := aPos.\x0a        element ifNotNil: [ element attr: 'y' value: yPos. text attr: 'y' value: yPos + 140]",
+source: "yPos: aPos\x0a\x09yPos := aPos.\x0a        element ifNotNil: [ element attr: 'y' value: yPos. text attr: 'y' value: yPos + 140. usage attr: 'y' value: yPos + 160.]",
 messageSends: ["ifNotNil:", "attr:value:", "+"],
 referencedClasses: []
 }),
@@ -775,16 +810,16 @@ referencedClasses: ["CommandExecutor"]
 smalltalk.WebHMI);
 
 smalltalk.addMethod(
-"_reconnectAdmin",
+"_reconnect",
 smalltalk.method({
-selector: "reconnectAdmin",
+selector: "reconnect",
 category: 'not yet classified',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_start", []);
 return self;},
 args: [],
-source: "reconnectAdmin\x0a\x09self start.",
+source: "reconnect\x0a\x09self start.",
 messageSends: ["start"],
 referencedClasses: []
 }),
@@ -878,20 +913,26 @@ var remButt=nil;
 var clearButt=nil;
 var chButt=nil;
 var connect=nil;
+var sidebar=nil;
 smalltalk.send((smalltalk.WebHMI || WebHMI), "_workSpaceId_", ["workspace"]);
 smalltalk.send((smalltalk.WebHMI || WebHMI), "_enableMoving_", [true]);
 (addButt=smalltalk.send("#addItem", "_asJQuery", []));
+smalltalk.send(addButt, "_hide", []);
 smalltalk.send(addButt, "_click_", [(function(){return smalltalk.send(self, "_showAddForm", []);})]);
 (remButt=smalltalk.send("#delItem", "_asJQuery", []));
+smalltalk.send(remButt, "_hide", []);
 smalltalk.send(remButt, "_click_", [(function(){return smalltalk.send(self, "_showRemForm", []);})]);
 (chButt=smalltalk.send("#chItem", "_asJQuery", []));
+smalltalk.send(chButt, "_hide", []);
 smalltalk.send(chButt, "_click_", [(function(){return smalltalk.send(self, "_showChangeForm", []);})]);
+(sidebar=smalltalk.send("#sidebar", "_asJQuery", []));
+smalltalk.send(sidebar, "_hide", []);
 (connect=smalltalk.send("#ConnectButton", "_asJQuery", []));
-smalltalk.send(connect, "_click_", [(function(){smalltalk.send(self, "_reconnectAdmin", []);return smalltalk.send(connect, "_hide", []);})]);
+smalltalk.send(connect, "_click_", [(function(){smalltalk.send(self, "_reconnect", []);smalltalk.send(connect, "_hide", []);smalltalk.send(addButt, "_show", []);smalltalk.send(remButt, "_show", []);smalltalk.send(chButt, "_show", []);smalltalk.send(self, "_showAddForm", []);return smalltalk.send(sidebar, "_show", []);})]);
 return self;},
 args: [],
-source: "startAdmin\x0a|addButt remButt clearButt chButt connect|\x0a\x0aWebHMI workSpaceId: 'workspace'.\x0aWebHMI enableMoving: true.\x0aaddButt := '#addItem' asJQuery.\x0aaddButt click: [  self showAddForm ].\x0aremButt := '#delItem' asJQuery.\x0aremButt click: [  self showRemForm ].\x0achButt := '#chItem' asJQuery.\x0achButt click: [ self showChangeForm ].\x0a\x0aconnect := '#ConnectButton' asJQuery.\x0aconnect click: [ self reconnectAdmin. connect hide. ].\x0a",
-messageSends: ["workSpaceId:", "enableMoving:", "asJQuery", "click:", "showAddForm", "showRemForm", "showChangeForm", "reconnectAdmin", "hide"],
+source: "startAdmin\x0a|addButt remButt clearButt chButt connect sidebar|\x0a\x0aWebHMI workSpaceId: 'workspace'.\x0aWebHMI enableMoving: true.\x0aaddButt := '#addItem' asJQuery.\x0aaddButt hide.\x0aaddButt click: [  self showAddForm. ].\x0aremButt := '#delItem' asJQuery.\x0aremButt hide.\x0aremButt click: [  self showRemForm ].\x0achButt := '#chItem' asJQuery.\x0achButt hide.\x0achButt click: [ self showChangeForm ].\x0asidebar := '#sidebar' asJQuery.\x0asidebar hide.\x0a\x0aconnect := '#ConnectButton' asJQuery.\x0aconnect click: [ self reconnect. connect hide. addButt show. remButt show. chButt show. self showAddForm. sidebar show.].",
+messageSends: ["workSpaceId:", "enableMoving:", "asJQuery", "hide", "click:", "showAddForm", "showRemForm", "showChangeForm", "reconnect", "show"],
 referencedClasses: ["WebHMI"]
 }),
 smalltalk.WebHMI);
@@ -903,13 +944,15 @@ selector: "startClient",
 category: 'not yet classified',
 fn: function (){
 var self=this;
+var connect=nil;
 smalltalk.send((smalltalk.WebHMI || WebHMI), "_workSpaceId_", ["workspace_client"]);
 smalltalk.send((smalltalk.WebHMI || WebHMI), "_enableMoving_", [false]);
-smalltalk.send(self, "_start", []);
+(connect=smalltalk.send("#ConnectButton", "_asJQuery", []));
+smalltalk.send(connect, "_click_", [(function(){smalltalk.send(self, "_reconnect", []);return smalltalk.send(connect, "_hide", []);})]);
 return self;},
 args: [],
-source: "startClient\x0a\x0aWebHMI workSpaceId: 'workspace_client'.\x0aWebHMI enableMoving: false.\x0aself start.",
-messageSends: ["workSpaceId:", "enableMoving:", "start"],
+source: "startClient\x0a|connect|\x0a\x0aWebHMI workSpaceId: 'workspace_client'.\x0aWebHMI enableMoving: false.\x0a\x0aconnect := '#ConnectButton' asJQuery.\x0aconnect click: [ self reconnect. connect hide. ].\x0a",
+messageSends: ["workSpaceId:", "enableMoving:", "asJQuery", "click:", "reconnect", "hide"],
 referencedClasses: ["WebHMI"]
 }),
 smalltalk.WebHMI);

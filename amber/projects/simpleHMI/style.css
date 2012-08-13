@@ -66,19 +66,30 @@ h2{
 }
 /*===========================*/
 /*Toolbar and toolbuttons*/
-#toolBar{ 
-    padding: 10px;
-    margin: 20px;
-}
 .toolbutton{
     font-size: large;
     color: gray;
-    border-radius: 10px;
-    margin-top: -10px;
+    border-radius: 6px;
     float: right;
+    margin-top: -5px;
 }
 .toolbutton:hover{
     color: black;
+}
+#connectForm{
+    float: right;
+}
+#ServerAddress{
+    font-size: large;
+    color: gray;
+    border-radius: 4px;
+    margin-top: -10px;
+}
+#ConnectButton{
+    font-size: large;
+    color: gray;
+    border-radius: 4px;
+    margin-top: -10px;
 }
 /*===========================*/
 /*Sidebar inputs*/

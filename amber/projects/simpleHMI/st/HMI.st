@@ -24,7 +24,7 @@ receiver: anObject
 ! !
 
 Object subclass: #HMIelement
-	instanceVariableNames: 'state elName elType element xPos yPos text elPicture elPictureOn elPictureOff params param1'
+	instanceVariableNames: 'state elName elType element xPos yPos text elPicture elPictureOn elPictureOff params param1 usage'
 	package: 'HMI'!
 
 !HMIelement methodsFor: 'not yet classified'!
@@ -32,6 +32,8 @@ Object subclass: #HMIelement
 drawOn: aRaphaelPaper
 	element := aRaphaelPaper image: ( self elPicture ) onX: self xPos onY: self yPos w: 128 h: 128.
 	text := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 140) text: self elName.
+ 	usage := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 160) text: ''.
+	self state: self state.
         element attr: 'opacity' value: 0.8.
 	((element attr: 'y') + 192) > ( WebHMI field height ) ifTrue: [ WebHMI setHeight: ( (element attr: 'y') + 192 ) ].
 	((element attr: 'x') + 128) > ( WebHMI field width ) ifTrue: [ WebHMI setWidth: ( (element attr: 'x') + 128 ) ].
@@ -88,16 +90,28 @@ state
 !
 
 state: aState
-	state := aState
+	state := aState.
+	usage ifNotNil:[ 
+	self state = 'on' 
+		ifTrue: [ usage attr: 'text' value: 'Loaded on: 0% ' ] 
+		ifFalse: [ usage attr: 'text' value: 'Is switched off']]
 !
 
 switch
-	self state = 'on' ifTrue: [ self state: 'off' ] ifFalse: [ self state: 'on' ].
+	self state = 'on' ifTrue: [ self state: 'off'. ] ifFalse: [ self state: 'on'.].
 	element attr: 'src' value: ( self elPicture )
 !
 
 text
 	^text
+!
+
+usage
+	^usage
+!
+
+usage: anInteger
+	usage ifNotNil: [ self state = 'on' ifTrue: [ usage attr: 'text' value: 'Loaded on: ', anInteger asString, '%' ]]
 !
 
 usingSocket: aSocket
@@ -110,7 +124,7 @@ xPos
 
 xPos: aPos
 	xPos := aPos.
-        element ifNotNil: [ element attr: 'x' value: xPos. text attr: 'x' value: xPos + 64]
+        element ifNotNil: [ element attr: 'x' value: xPos. text attr: 'x' value: xPos + 64. usage attr: 'x' value: xPos + 64.]
 !
 
 yPos
@@ -119,7 +133,7 @@ yPos
 
 yPos: aPos
 	yPos := aPos.
-        element ifNotNil: [ element attr: 'y' value: yPos. text attr: 'y' value: yPos + 140]
+        element ifNotNil: [ element attr: 'y' value: yPos. text attr: 'y' value: yPos + 140. usage attr: 'y' value: yPos + 160.]
 ! !
 
 HMIelement class instanceVariableNames: 'collection'!
@@ -273,7 +287,7 @@ processSwitchedMessage: msg
 CommandExecutor doIt: (msg replace: '@switched ' with: '')
 !
 
-reconnectAdmin
+reconnect
 	self start.
 !
 
@@ -306,26 +320,34 @@ adress := document getElementById: 'ServerAddress'.
 !
 
 startAdmin
-|addButt remButt clearButt chButt connect|
+|addButt remButt clearButt chButt connect sidebar|
 
 WebHMI workSpaceId: 'workspace'.
 WebHMI enableMoving: true.
 addButt := '#addItem' asJQuery.
-addButt click: [  self showAddForm ].
+addButt hide.
+addButt click: [  self showAddForm. ].
 remButt := '#delItem' asJQuery.
+remButt hide.
 remButt click: [  self showRemForm ].
 chButt := '#chItem' asJQuery.
+chButt hide.
 chButt click: [ self showChangeForm ].
+sidebar := '#sidebar' asJQuery.
+sidebar hide.
 
 connect := '#ConnectButton' asJQuery.
-connect click: [ self reconnectAdmin. connect hide. ].
+connect click: [ self reconnect. connect hide. addButt show. remButt show. chButt show. self showAddForm. sidebar show.].
 !
 
 startClient
+|connect|
 
 WebHMI workSpaceId: 'workspace_client'.
 WebHMI enableMoving: false.
-self start.
+
+connect := '#ConnectButton' asJQuery.
+connect click: [ self reconnect. connect hide. ].
 ! !
 
 WebHMI class instanceVariableNames: 'currentItem field scale moveAccess paperId'!

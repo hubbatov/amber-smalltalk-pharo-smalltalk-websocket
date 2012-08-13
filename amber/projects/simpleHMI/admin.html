@@ -16,18 +16,17 @@
   </head>
   <body onresize="smalltalk.WebHMI._resize()">
   <div id="header">
-
+   <form action="" id="connectForm">
+  <input id='ServerAddress' type='text' value="localhost:9898">
+  <input id='ConnectButton' type='button' value="Connect">
+  </form>
   <div id="toolBar">
-  <input id="getScheme" class="toolbutton" type="button" value="Refresh"></button>
   <input id="addItem" class="toolbutton" type="button" value="Add new item"></button>
   <input id="delItem" class="toolbutton" type="button" value="Remove item"></button>
   <input id="chItem" class="toolbutton" type="button" value="Change item"></button>
   <input id="browserButton" class="toolbutton" type="button" value="OpenBrowser" onclick="smalltalk.Browser._open()"></button>
   </div>
-  <form>
-  <input id='ServerAddress' type='text' value="192.168.7.209:9898">
-  <input id='ConnectButton' type='button' value="Connect">
-  </form>
+
   </div>
   <div id="bigdiv">
   <p id="scaleVal">Scale 100%</p>
