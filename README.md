@@ -13,6 +13,8 @@ To install this system in linux you have to:<br>
 -	Download and install node.js (for example from http://nodejs.org ) <br>
 -	Run pharo using command: <i>pharo directory/pharo.sh </i><br>
 -	Run server in Pharo using command: <i>WebHMIServer startServerOnPort: aPort </i><br>
+- Run EventCaster using command: <i>WebHMIEventCaster start</i><br>
+If you want to stop casting events press "Alt" + "."<br>
 -	Run amber server using command: <i>amber directory/#sudo node ./server/server.js. </i><br>
 it must say that file server is running on port 4000<br>
 -	Open your browser and go to http://localhost:4000/projects/simpleHMI/admin.html<br>
