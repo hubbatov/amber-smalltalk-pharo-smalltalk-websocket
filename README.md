@@ -8,8 +8,8 @@ Using this example you can create realtime smalltalk web-applications, i hope)
 <b>How to install and run</b>
 
 To install this system in linux you have to:<br>
--  Download sources of this project or clone them using Git with command:
-git clone https://github.com/hubbatov/amber_pharo_websocket.git <br>
+-  Download sources of this project or clone them using Git with command:<br>
+<i>git clone https://github.com/hubbatov/amber_pharo_websocket.git </i><br>
 -	Download and install node.js (for example from http://nodejs.org ) <br>
 -	Run pharo using command: <i>pharo directory/pharo.sh </i><br>
 -	Run server in Pharo using command: <i>WebHMIServer startServerOnPort: aPort </i><br>
