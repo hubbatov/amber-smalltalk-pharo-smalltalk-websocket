@@ -156,6 +156,7 @@ getElement: aName
 removeElement: aHMIelement
         aHMIelement element remove.
         aHMIelement text remove.
+	aHMIelement usage remove.
 	self elements remove: aHMIelement.
 ! !
 
@@ -398,23 +399,22 @@ changeFormHTML
 !
 
 changeItem
-|div itemName itemType typeName onPic offPic |
+|div itemName typeName onPic offPic |
 itemName := document getElementById: 'itemName'.
-itemType := document getElementById: 'itemType'.
 typeName := document getElementById: 'itemTypeName'.
 onPic := document getElementById: 'itemOnPath'.
 offPic := document getElementById: 'itemOffPath'.
 div := document getElementById: 'sidebar'.
 
 itemName value size > 0 ifTrue: [
-	itemType value size > 0 ifTrue: [
+	typeName value size > 0 ifTrue: [
 		onPic value size > 0 ifTrue: [
 			offPic value size > 0 ifTrue: [
 
 				socket send: '@change #(WebHMIElement elementFromCollection: ' , '''' , currentItem elName, '''', ') elName:  ', '''' ,itemName value, '''', '; elType: ((WebHMIElementType new) typeName: ', '''' , typeName value,'''',  
 						'; imageOn: ', '''', onPic value, '''', '; imageOff: ', '''', offPic value, '''', ')'.
 
-				div innerHTML: ( div innerHTML ,'<br>Changed Item ', itemName value, ' ' ,itemType value ) ]
+				div innerHTML: ( div innerHTML ,'<br>Changed Item ', itemName value, ' ' , typeName value ) ]
 			ifFalse: [ window alert: 'Please check out empty fields' ]]
 		ifFalse: [ window alert: 'Please check out empty fields' ]] 
 	ifFalse: [ window alert: 'Please check out empty fields' ]]
@@ -446,7 +446,7 @@ delItem
 div := document getElementById: 'sidebar'.
 
 (self currentItem elName = 'emptyName') ifFalse: [
-		div innerHTML: ( div innerHTML ,'<br>Removed Item ', self currentItem elName, ', please refresh' ).
+		div innerHTML: ( div innerHTML ,'<br>Removed Item ', self currentItem elName ).
 		socket send: '@remove #(WebHMIElement RemoveByName: ', '''', self currentItem elName, ''')'.
 		self currentItem: (HMIelement new) ]
 								ifTrue: [ window alert: 'Select item to delete' ]
