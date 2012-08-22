@@ -411,7 +411,7 @@ itemName value size > 0 ifTrue: [
 		onPic value size > 0 ifTrue: [
 			offPic value size > 0 ifTrue: [
 
-				socket send: '@change #(WebHMIElement elementFromCollection: ' , '''' , currentItem elName, '''', ') elName:  ', '''' ,itemName value, '''', '; elType: ((WebHMIElementType new) typeName: ', '''' , typeName value,'''',  
+				socket send: '@changeParam #(WebHMIElement elementFromCollection: ' , '''' , currentItem elName, '''', ') elName:  ', '''' ,itemName value, '''', '; elType: ((WebHMIElementType new) typeName: ', '''' , typeName value,'''',  
 						'; imageOn: ', '''', onPic value, '''', '; imageOff: ', '''', offPic value, '''', ')'.
 
 				div innerHTML: ( div innerHTML ,'<br>Changed Item ', itemName value, ' ' , typeName value ) ]
