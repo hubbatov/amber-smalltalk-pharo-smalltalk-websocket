@@ -56,7 +56,23 @@ referencedClasses: []
 smalltalk.CommandExecutor.klass);
 
 
-smalltalk.addClass('HMIelement', smalltalk.Object, ['state', 'elName', 'elType', 'element', 'xPos', 'yPos', 'text', 'elPicture', 'elPictureOn', 'elPictureOff', 'params', 'param1', 'usage'], 'HMI');
+smalltalk.addClass('HMIelement', smalltalk.Object, ['state', 'elName', 'elType', 'element', 'xPos', 'yPos', 'text', 'elPicture', 'elPictureOn', 'elPictureOff', 'params', 'param1', 'usage', 'scene', 'socket', 'netClient'], 'HMI');
+smalltalk.addMethod(
+"_client",
+smalltalk.method({
+selector: "client",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return self['@netClient'];
+return self;},
+args: [],
+source: "client\x0a\x09^netClient",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HMIelement);
+
 smalltalk.addMethod(
 "_drawOn_",
 smalltalk.method({
@@ -67,16 +83,13 @@ var self=this;
 (self['@element']=smalltalk.send(aRaphaelPaper, "_image_onX_onY_w_h_", [smalltalk.send(self, "_elPicture", []), smalltalk.send(self, "_xPos", []), smalltalk.send(self, "_yPos", []), (128), (128)]));
 (self['@text']=smalltalk.send(aRaphaelPaper, "_text_onY_text_", [((($receiver = smalltalk.send(self, "_xPos", [])).klass === smalltalk.Number) ? $receiver +(64) : smalltalk.send($receiver, "__plus", [(64)])), ((($receiver = smalltalk.send(self, "_yPos", [])).klass === smalltalk.Number) ? $receiver +(140) : smalltalk.send($receiver, "__plus", [(140)])), smalltalk.send(self, "_elName", [])]));
 (self['@usage']=smalltalk.send(aRaphaelPaper, "_text_onY_text_", [((($receiver = smalltalk.send(self, "_xPos", [])).klass === smalltalk.Number) ? $receiver +(64) : smalltalk.send($receiver, "__plus", [(64)])), ((($receiver = smalltalk.send(self, "_yPos", [])).klass === smalltalk.Number) ? $receiver +(160) : smalltalk.send($receiver, "__plus", [(160)])), ""]));
+(self['@scene']=aRaphaelPaper);
 smalltalk.send(self, "_state_", [smalltalk.send(self, "_state", [])]);
-smalltalk.send(self['@element'], "_attr_value_", ["opacity", (0.8)]);
-((($receiver = ((($receiver = ((($receiver = smalltalk.send(self['@element'], "_attr_", ["y"])).klass === smalltalk.Number) ? $receiver +(192) : smalltalk.send($receiver, "__plus", [(192)]))).klass === smalltalk.Number) ? $receiver >smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_height", []) : smalltalk.send($receiver, "__gt", [smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_height", [])]))).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.WebHMI || WebHMI), "_setHeight_", [((($receiver = smalltalk.send(self['@element'], "_attr_", ["y"])).klass === smalltalk.Number) ? $receiver +(192) : smalltalk.send($receiver, "__plus", [(192)]))]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send((smalltalk.WebHMI || WebHMI), "_setHeight_", [((($receiver = smalltalk.send(self['@element'], "_attr_", ["y"])).klass === smalltalk.Number) ? $receiver +(192) : smalltalk.send($receiver, "__plus", [(192)]))]);})]));
-((($receiver = ((($receiver = ((($receiver = smalltalk.send(self['@element'], "_attr_", ["x"])).klass === smalltalk.Number) ? $receiver +(128) : smalltalk.send($receiver, "__plus", [(128)]))).klass === smalltalk.Number) ? $receiver >smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_width", []) : smalltalk.send($receiver, "__gt", [smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_width", [])]))).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.WebHMI || WebHMI), "_setWidth_", [((($receiver = smalltalk.send(self['@element'], "_attr_", ["x"])).klass === smalltalk.Number) ? $receiver +(128) : smalltalk.send($receiver, "__plus", [(128)]))]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send((smalltalk.WebHMI || WebHMI), "_setWidth_", [((($receiver = smalltalk.send(self['@element'], "_attr_", ["x"])).klass === smalltalk.Number) ? $receiver +(128) : smalltalk.send($receiver, "__plus", [(128)]))]);})]));
-((($receiver = smalltalk.send((smalltalk.WebHMI || WebHMI), "_enableMoving", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_setActions", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_setActions", []);})]));
 return self;},
 args: ["aRaphaelPaper"],
-source: "drawOn: aRaphaelPaper\x0a\x09element := aRaphaelPaper image: ( self elPicture ) onX: self xPos onY: self yPos w: 128 h: 128.\x0a\x09text := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 140) text: self elName.\x0a \x09usage := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 160) text: ''.\x0a\x09self state: self state.\x0a        element attr: 'opacity' value: 0.8.\x0a\x09((element attr: 'y') + 192) > ( WebHMI field height ) ifTrue: [ WebHMI setHeight: ( (element attr: 'y') + 192 ) ].\x0a\x09((element attr: 'x') + 128) > ( WebHMI field width ) ifTrue: [ WebHMI setWidth: ( (element attr: 'x') + 128 ) ].\x0a\x09WebHMI enableMoving ifTrue: [ self setActions ].",
-messageSends: ["image:onX:onY:w:h:", "elPicture", "xPos", "yPos", "text:onY:text:", "+", "elName", "state:", "state", "attr:value:", "ifTrue:", ">", "attr:", "height", "field", "setHeight:", "width", "setWidth:", "enableMoving", "setActions"],
-referencedClasses: ["WebHMI"]
+source: "drawOn: aRaphaelPaper\x0a\x09element := aRaphaelPaper image: ( self elPicture ) onX: self xPos onY: self yPos w: 128 h: 128.\x0a\x09text := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 140) text: self elName.\x0a \x09usage := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 160) text: ''.\x0a\x09scene := aRaphaelPaper.\x0a\x09self state: self state.",
+messageSends: ["image:onX:onY:w:h:", "elPicture", "xPos", "yPos", "text:onY:text:", "+", "elName", "state:", "state"],
+referencedClasses: []
 }),
 smalltalk.HMIelement);
 
@@ -195,13 +208,31 @@ var yFactor=nil;
 (oy=smalltalk.send(self['@element'], "_attr_", ["y"]));
 (xFactor=(1));
 (yFactor=(1));
-smalltalk.send(self['@element'], "_drag_value_value_", [(function(dx, dy){(xFactor=((($receiver = ((($receiver = smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_width", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send((smalltalk.WebHMI || WebHMI), "_scale", []) : smalltalk.send($receiver, "__plus", [smalltalk.send((smalltalk.WebHMI || WebHMI), "_scale", [])]))).klass === smalltalk.Number) ? $receiver /smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_width", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_width", [])])));(yFactor=((($receiver = ((($receiver = smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_height", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send((smalltalk.WebHMI || WebHMI), "_scale", []) : smalltalk.send($receiver, "__plus", [smalltalk.send((smalltalk.WebHMI || WebHMI), "_scale", [])]))).klass === smalltalk.Number) ? $receiver /smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_height", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(smalltalk.send((smalltalk.WebHMI || WebHMI), "_field", []), "_height", [])])));return smalltalk.send((typeof socket == 'undefined' ? nil : socket), "_send_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(unescape("@changePos%20%23%28WebHMIElement%20elementFromCollection%3A%20"), "__comma", [unescape("%27")]), "__comma", [smalltalk.send(self, "_elName", [])]), "__comma", [unescape("%27")]), "__comma", [unescape("%20%29%20xPos%3A")]), "__comma", [((($receiver = ox).klass === smalltalk.Number) ? $receiver +dx : smalltalk.send($receiver, "__plus", [dx]))]), "__comma", [" yPos:"]), "__comma", [((($receiver = oy).klass === smalltalk.Number) ? $receiver +dy : smalltalk.send($receiver, "__plus", [dy]))])]);}), (function(){smalltalk.send((smalltalk.WebHMI || WebHMI), "_currentItem_", [self]);return smalltalk.send(self['@element'], "_attr_value_", ["opacity", (1)]);}), (function(){(ox=((($receiver = ((($receiver = xFactor).klass === smalltalk.Number) ? $receiver /smalltalk.send(self['@element'], "_attr_", ["x"]) : smalltalk.send($receiver, "__slash", [smalltalk.send(self['@element'], "_attr_", ["x"])]))).klass === smalltalk.Number) ? $receiver +smalltalk.send(self['@element'], "_attr_", ["x"]) : smalltalk.send($receiver, "__plus", [smalltalk.send(self['@element'], "_attr_", ["x"])])));(oy=((($receiver = ((($receiver = yFactor).klass === smalltalk.Number) ? $receiver /smalltalk.send(self['@element'], "_attr_", ["y"]) : smalltalk.send($receiver, "__slash", [smalltalk.send(self['@element'], "_attr_", ["y"])]))).klass === smalltalk.Number) ? $receiver +smalltalk.send(self['@element'], "_attr_", ["y"]) : smalltalk.send($receiver, "__plus", [smalltalk.send(self['@element'], "_attr_", ["y"])])));return smalltalk.send(self['@element'], "_attr_value_", ["opacity", (0.8)]);})]);
-smalltalk.send(self['@element'], "_dblclick_", [(function(){return smalltalk.send((typeof socket == 'undefined' ? nil : socket), "_send_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(unescape("@switch%20%23%28WebHMIElement%20elementFromCollection%3A%20"), "__comma", [unescape("%27")]), "__comma", [smalltalk.send(self, "_elName", [])]), "__comma", [unescape("%27")]), "__comma", [unescape("%20%29%20switch")])]);})]);
+smalltalk.send(self['@element'], "_drag_value_value_", [(function(dx, dy){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_client", []), "_instance", []), "_send_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("@changePos #(WebHMIElement elementFromCollection: ", "__comma", ["'"]), "__comma", [smalltalk.send(self, "_elName", [])]), "__comma", ["'"]), "__comma", [" ) xPos:"]), "__comma", [((($receiver = ox).klass === smalltalk.Number) ? $receiver +dx : smalltalk.send($receiver, "__plus", [dx]))]), "__comma", [" yPos:"]), "__comma", [((($receiver = oy).klass === smalltalk.Number) ? $receiver +dy : smalltalk.send($receiver, "__plus", [dy]))])]);}), (function(){return smalltalk.send(self['@element'], "_attr_value_", ["opacity", (1)]);}), (function(){(ox=((($receiver = ((($receiver = xFactor).klass === smalltalk.Number) ? $receiver /smalltalk.send(self['@element'], "_attr_", ["x"]) : smalltalk.send($receiver, "__slash", [smalltalk.send(self['@element'], "_attr_", ["x"])]))).klass === smalltalk.Number) ? $receiver +smalltalk.send(self['@element'], "_attr_", ["x"]) : smalltalk.send($receiver, "__plus", [smalltalk.send(self['@element'], "_attr_", ["x"])])));(oy=((($receiver = ((($receiver = yFactor).klass === smalltalk.Number) ? $receiver /smalltalk.send(self['@element'], "_attr_", ["y"]) : smalltalk.send($receiver, "__slash", [smalltalk.send(self['@element'], "_attr_", ["y"])]))).klass === smalltalk.Number) ? $receiver +smalltalk.send(self['@element'], "_attr_", ["y"]) : smalltalk.send($receiver, "__plus", [smalltalk.send(self['@element'], "_attr_", ["y"])])));return smalltalk.send(self['@element'], "_attr_value_", ["opacity", (0.8)]);})]);
+smalltalk.send(self['@element'], "_dblclick_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_client", []), "_instance", []), "_send_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("@switch #(WebHMIElement elementFromCollection: ", "__comma", ["'"]), "__comma", [smalltalk.send(self, "_elName", [])]), "__comma", ["'"]), "__comma", [" ) switch"])]);})]);
 return self;},
 args: [],
-source: "setActions\x0a| ox oy xFactor yFactor|\x0aox := ( element attr: 'x' ).\x0aoy := ( element attr: 'y' ).\x0axFactor := 1.\x0ayFactor := 1.\x0a\x0aelement drag: [ :dx :dy | \x0a\x09\x09\x09xFactor := ((WebHMI field width + WebHMI scale) / (WebHMI field width )).\x0a\x09\x09\x09yFactor := ((WebHMI field height + WebHMI scale) / (WebHMI field height )).\x0a                        socket send: '@changePos #(WebHMIElement elementFromCollection: ', '''', self elName, '''' , ' ) xPos:',  ( ox + dx ), ' yPos:',  ( oy + dy ).\x0a\x09\x09\x09\x22(oy + dy + 192) > ( WebHMI field height ) ifTrue: [ WebHMI setHeight: ( oy + dy + 192 ) ].\x22\x0a                        \x22(ox + dx + 128) > ( WebHMI field width ) ifTrue: [ WebHMI setWidth: ( ox + dx + 128 ) ]. \x22] \x0a\x09\x09value: [  WebHMI currentItem: self. element attr: 'opacity' value: 1. ] \x0a\x09\x09value: [  ox := (xFactor / ( element attr: 'x' ) + ( element attr: 'x' )). oy := (yFactor / ( element attr: 'y' ) +  ( element attr: 'y' )). element attr: 'opacity' value: 0.8. ].\x0aelement dblclick: [ socket send: '@switch #(WebHMIElement elementFromCollection: ', '''', self elName, '''' , ' ) switch' ].",
-messageSends: ["attr:", "drag:value:value:", "/", "+", "width", "field", "scale", "height", "send:", ",", "elName", "currentItem:", "attr:value:", "dblclick:"],
-referencedClasses: ["WebHMI"]
+source: "setActions\x0a| ox oy xFactor yFactor|\x0aox := ( element attr: 'x' ).\x0aoy := ( element attr: 'y' ).\x0axFactor := 1.\x0ayFactor := 1.\x0a\x0aelement drag: [ :dx :dy | (self client instance) send: '@changePos #(WebHMIElement elementFromCollection: ', '''', self elName, '''' , ' ) xPos:',  ( ox + dx ), ' yPos:',  ( oy + dy )] \x0a\x09\x09value: [  element attr: 'opacity' value: 1. ] \x0a\x09\x09value: [  ox := (xFactor / ( element attr: 'x' ) + ( element attr: 'x' )). oy := (yFactor / ( element attr: 'y' ) +  ( element attr: 'y' )). element attr: 'opacity' value: 0.8. ].\x0a\x0aelement dblclick: [ (self client instance) send: '@switch #(WebHMIElement elementFromCollection: ', '''', self elName, '''' , ' ) switch' ].",
+messageSends: ["attr:", "drag:value:value:", "send:", "instance", "client", ",", "elName", "+", "attr:value:", "/", "dblclick:"],
+referencedClasses: []
+}),
+smalltalk.HMIelement);
+
+smalltalk.addMethod(
+"_setParent_",
+smalltalk.method({
+selector: "setParent:",
+category: 'not yet classified',
+fn: function (aWebHMIClient){
+var self=this;
+(self['@netClient']=aWebHMIClient);
+smalltalk.send(self, "_drawOn_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_client", []), "_interface", []), "_paper", [])]);
+smalltalk.send(self, "_setActions", []);
+return self;},
+args: ["aWebHMIClient"],
+source: "setParent: aWebHMIClient\x0a\x09netClient := aWebHMIClient.\x0a\x09self drawOn: ( self client interface paper ).\x0a\x09self setActions.",
+messageSends: ["drawOn:", "paper", "interface", "client", "setActions"],
+referencedClasses: []
 }),
 smalltalk.HMIelement);
 
@@ -1360,5 +1391,496 @@ messageSends: ["ifNotNil:", "scale:", "-", "scale", "setViewBox:atY:width:height
 referencedClasses: []
 }),
 smalltalk.WebHMI.klass);
+
+
+smalltalk.addClass('WebHMIClient', smalltalk.Object, ['commander', 'ui'], 'HMI');
+smalltalk.addMethod(
+"_commander",
+smalltalk.method({
+selector: "commander",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return self['@commander'];
+return self;},
+args: [],
+source: "commander\x0a\x09\x22Returns aWebHMICommandProcessor object of the client\x22\x0a\x09^commander",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMIClient);
+
+smalltalk.addMethod(
+"_init",
+smalltalk.method({
+selector: "init",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var address=nil;
+(function($rec){smalltalk.send($rec, "_show_", ["Connecting to server..."]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));
+(address=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["ServerAddress"]));
+(($receiver = address) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_initClientOn_", [smalltalk.send(smalltalk.send("ws://", "__comma", [smalltalk.send(address, "_value", [])]), "__comma", ["/broadcast"])]);})() : nil;
+return self;},
+args: [],
+source: "init\x0a\x09\x22Entry point for Network part. Here Network part will be initialized\x22\x0a\x09| address |\x0a\x09Transcript show: 'Connecting to server...'; cr.\x0a\x09address := document getElementById: 'ServerAddress'.\x0a\x09\x09address ifNotNil: [  self initClientOn: 'ws://', address value,'/broadcast'. ]\x0a\x09\x0a\x0a\x09\x0a\x09",
+messageSends: ["show:", "cr", "getElementById:", "ifNotNil:", "initClientOn:", ",", "value"],
+referencedClasses: ["Transcript"]
+}),
+smalltalk.WebHMIClient);
+
+smalltalk.addMethod(
+"_initClientOn_",
+smalltalk.method({
+selector: "initClientOn:",
+category: 'not yet classified',
+fn: function (anAddressWithPort){
+var self=this;
+(self['@commander']=smalltalk.send((smalltalk.WebHMICommandProcessor || WebHMICommandProcessor), "_new", []));
+smalltalk.send(self['@commander'], "_baseClient_", [self]);
+socket = new WebSocket(anAddressWithPort); ;
+socket.onopen = function() { alert('Connection has been made successfuly');;
+smalltalk.send((typeof socket == 'undefined' ? nil : socket), "_send_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_getSchemeCommand", [])]);
+};
+socket.onmessage = function (evt) { ;
+smalltalk.send(smalltalk.send(self, "_commander", []), "_processMessage_", [smalltalk.send((typeof evt == 'undefined' ? nil : evt), "_data", [])]);
+};;
+socket.onclose = function() { alert('Connection closed');};
+return self;},
+args: ["anAddressWithPort"],
+source: "initClientOn: anAddressWithPort\x0a\x09\x22Initializing WebSocket for data exchange\x22\x0a\x09commander := WebHMICommandProcessor new.\x0a\x09commander baseClient: self.\x0a\x0a\x09<socket = new WebSocket(anAddressWithPort); >.\x0a\x09<socket.onopen = function() { alert('Connection has been made successfuly');>.\x0a\x09\x09socket send: (WebHMICommand getSchemeCommand).\x0a\x09<}>.\x0a\x09<socket.onmessage = function (evt) { >.\x0a    \x09\x09self commander processMessage: (evt data).\x0a\x09<};>.\x0a\x09\x0a\x09<socket.onclose = function() { alert('Connection closed');}>.\x0a\x0a\x0a\x09",
+messageSends: ["new", "baseClient:", "send:", "getSchemeCommand", "processMessage:", "commander", "data"],
+referencedClasses: ["WebHMICommandProcessor", "WebHMICommand"]
+}),
+smalltalk.WebHMIClient);
+
+smalltalk.addMethod(
+"_installGui_",
+smalltalk.method({
+selector: "installGui:",
+category: 'not yet classified',
+fn: function (aWebHMIClientGui){
+var self=this;
+(self['@ui']=aWebHMIClientGui);
+return self;},
+args: ["aWebHMIClientGui"],
+source: "installGui: aWebHMIClientGui\x0a\x09\x22Installs the GUI, that NetClient can use\x22\x0a\x09ui := aWebHMIClientGui",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMIClient);
+
+smalltalk.addMethod(
+"_instance",
+smalltalk.method({
+selector: "instance",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return (typeof socket == 'undefined' ? nil : socket);
+return self;},
+args: [],
+source: "instance\x0a\x09\x22Returns a WebSocket object of the client\x22\x0a\x09^socket\x0a\x09",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMIClient);
+
+smalltalk.addMethod(
+"_interface",
+smalltalk.method({
+selector: "interface",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return self['@ui'];
+return self;},
+args: [],
+source: "interface\x0a\x09\x22Returns a WebHMIClientGui object of the client\x22\x0a\x09^ui",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMIClient);
+
+
+smalltalk.WebHMIClient.klass.iVarNames = ['socket'];
+
+smalltalk.addClass('WebHMIClientGui', smalltalk.Object, ['netClient', 'field'], 'HMI');
+smalltalk.addMethod(
+"_init",
+smalltalk.method({
+selector: "init",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var connect=nil;
+(function($rec){smalltalk.send($rec, "_show_", ["Creating GUI..."]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));
+smalltalk.send(self, "_paper_", [smalltalk.send(self, "_preparePaper_", ["workspace"])]);
+(self['@netClient']=smalltalk.send((smalltalk.WebHMIClient || WebHMIClient), "_new", []));
+smalltalk.send(self['@netClient'], "_installGui_", [self]);
+(connect=smalltalk.send("#ConnectButton", "_asJQuery", []));
+smalltalk.send(connect, "_click_", [(function(){return smalltalk.send(self['@netClient'], "_init", []);})]);
+return self;},
+args: [],
+source: "init\x0a\x09\x22Entry point for application. Here GUI part will be initialized, after that Network part will be initialized\x22\x09 \x0a\x09| connect |\x0a\x09Transcript show: 'Creating GUI...'; cr.\x0a\x09self paper: (self preparePaper: 'workspace').\x0a\x09netClient := WebHMIClient new.\x0a\x09netClient installGui: self.\x0a\x0a\x09connect := '#ConnectButton' asJQuery.\x0a\x09connect click: [ netClient init.].",
+messageSends: ["show:", "cr", "paper:", "preparePaper:", "new", "installGui:", "asJQuery", "click:", "init"],
+referencedClasses: ["Transcript", "WebHMIClient"]
+}),
+smalltalk.WebHMIClientGui);
+
+smalltalk.addMethod(
+"_paper",
+smalltalk.method({
+selector: "paper",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return self['@field'];
+return self;},
+args: [],
+source: "paper\x0a\x09^field",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMIClientGui);
+
+smalltalk.addMethod(
+"_paper_",
+smalltalk.method({
+selector: "paper:",
+category: 'not yet classified',
+fn: function (aPaper){
+var self=this;
+(self['@field']=aPaper);
+return self;},
+args: ["aPaper"],
+source: "paper: aPaper\x0a\x09 field := aPaper",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMIClientGui);
+
+smalltalk.addMethod(
+"_preparePaper_",
+smalltalk.method({
+selector: "preparePaper:",
+category: 'not yet classified',
+fn: function (aId){
+var self=this;
+var div=nil;
+(function($rec){smalltalk.send($rec, "_show_", ["Creating paper..."]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));
+(div=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", [aId]));
+return smalltalk.send((smalltalk.Raphael || Raphael), "_value_value_value_", [div, ((($receiver = smalltalk.send(div, "_clientWidth", [])).klass === smalltalk.Number) ? $receiver -(20) : smalltalk.send($receiver, "__minus", [(20)])), ((($receiver = smalltalk.send(div, "_clientHeight", [])).klass === smalltalk.Number) ? $receiver -(20) : smalltalk.send($receiver, "__minus", [(20)]))]);
+return self;},
+args: ["aId"],
+source: "preparePaper: aId\x0a\x09\x22Workfield prepare. Returns paper, where elements will be drawn\x22\x0a\x09|div|\x0a\x09Transcript show: 'Creating paper...'; cr.\x0a\x09div := document getElementById: aId.\x0a\x09^(Raphael value: div value: ( div clientWidth - 20 ) value: ( div clientHeight -  20))",
+messageSends: ["show:", "cr", "getElementById:", "value:value:value:", "-", "clientWidth", "clientHeight"],
+referencedClasses: ["Transcript", "Raphael"]
+}),
+smalltalk.WebHMIClientGui);
+
+
+
+smalltalk.addClass('WebHMICommand', smalltalk.Object, [], 'HMI');
+
+smalltalk.addMethod(
+"_changeCommand",
+smalltalk.method({
+selector: "changeCommand",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return "@change";
+return self;},
+args: [],
+source: "changeCommand\x0a\x09^'@change'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMICommand.klass);
+
+smalltalk.addMethod(
+"_getSchemeCommand",
+smalltalk.method({
+selector: "getSchemeCommand",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return "@getScheme";
+return self;},
+args: [],
+source: "getSchemeCommand\x0a\x09^'@getScheme'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMICommand.klass);
+
+smalltalk.addMethod(
+"_infoCommand",
+smalltalk.method({
+selector: "infoCommand",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return "@info";
+return self;},
+args: [],
+source: "infoCommand\x0a\x09^'@info'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMICommand.klass);
+
+smalltalk.addMethod(
+"_moveCommand",
+smalltalk.method({
+selector: "moveCommand",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return "@moved";
+return self;},
+args: [],
+source: "moveCommand\x0a\x09^'@moved'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMICommand.klass);
+
+smalltalk.addMethod(
+"_paramsCommand",
+smalltalk.method({
+selector: "paramsCommand",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return "@params";
+return self;},
+args: [],
+source: "paramsCommand\x0a\x09^'@params'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMICommand.klass);
+
+smalltalk.addMethod(
+"_removeCommand",
+smalltalk.method({
+selector: "removeCommand",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return "@remove";
+return self;},
+args: [],
+source: "removeCommand\x0a\x09^'@remove'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMICommand.klass);
+
+smalltalk.addMethod(
+"_switchCommand",
+smalltalk.method({
+selector: "switchCommand",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return "@switched";
+return self;},
+args: [],
+source: "switchCommand\x0a\x09^'@switched'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMICommand.klass);
+
+
+smalltalk.addClass('WebHMICommandProcessor', smalltalk.Object, ['netclient', 'elements'], 'HMI');
+smalltalk.addMethod(
+"_baseClient",
+smalltalk.method({
+selector: "baseClient",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return self['@netclient'];
+return self;},
+args: [],
+source: "baseClient\x0a\x09^netclient",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.WebHMICommandProcessor);
+
+smalltalk.addMethod(
+"_baseClient_",
+smalltalk.method({
+selector: "baseClient:",
+category: 'not yet classified',
+fn: function (aWebHMIClient){
+var self=this;
+(function($rec){smalltalk.send($rec, "_show_", ["Creating commander..."]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));
+(self['@netclient']=aWebHMIClient);
+return self;},
+args: ["aWebHMIClient"],
+source: "baseClient: aWebHMIClient\x0a\x09Transcript show: 'Creating commander...'; cr.\x0a\x09netclient := aWebHMIClient",
+messageSends: ["show:", "cr"],
+referencedClasses: ["Transcript"]
+}),
+smalltalk.WebHMICommandProcessor);
+
+smalltalk.addMethod(
+"_elements",
+smalltalk.method({
+selector: "elements",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+(($receiver = self['@elements']) == nil || $receiver == undefined) ? (function(){return (self['@elements']=smalltalk.send((smalltalk.HMIelement || HMIelement), "_elements", []));})() : $receiver;
+return self['@elements'];
+return self;},
+args: [],
+source: "elements \x0a\x09elements ifNil: [ elements := HMIelement elements ].\x0a\x09^elements",
+messageSends: ["ifNil:", "elements"],
+referencedClasses: ["HMIelement"]
+}),
+smalltalk.WebHMICommandProcessor);
+
+smalltalk.addMethod(
+"_elementsContains_",
+smalltalk.method({
+selector: "elementsContains:",
+category: 'not yet classified',
+fn: function (aString){
+var self=this;
+var $early={};
+try{smalltalk.send(smalltalk.send(self, "_elements", []), "_do_", [(function(el){return ((($receiver = smalltalk.send(smalltalk.send(el, "_elName", []), "__eq", [aString])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw $early=[true]})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function(){throw $early=[true]})();})]));})]);
+return false;
+return self;
+} catch(e) {if(e===$early)return e[0]; throw e}},
+args: ["aString"],
+source: "elementsContains: aString\x0a\x09self elements do: [ : el | el elName = aString ifTrue: [^ true]].\x0a\x09^false",
+messageSends: ["do:", "elements", "ifTrue:", "=", "elName"],
+referencedClasses: []
+}),
+smalltalk.WebHMICommandProcessor);
+
+smalltalk.addMethod(
+"_processInfoMessage_",
+smalltalk.method({
+selector: "processInfoMessage:",
+category: 'not yet classified',
+fn: function (msg){
+var self=this;
+var resultElement=nil;
+(function($rec){smalltalk.send($rec, "_show_", [msg]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));
+(resultElement=smalltalk.send((smalltalk.CommandExecutor || CommandExecutor), "_doIt_", [smalltalk.send(msg, "_replace_with_", ["@info ", ""])]));
+((($receiver = smalltalk.send(self, "_elementsContains_", [smalltalk.send(resultElement, "_elName", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(smalltalk.send((smalltalk.HMIelement || HMIelement), "_elements", []), "_add_", [smalltalk.send(resultElement, "_setParent_", [smalltalk.send(self, "_baseClient", [])])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.HMIelement || HMIelement), "_elements", []), "_add_", [smalltalk.send(resultElement, "_setParent_", [smalltalk.send(self, "_baseClient", [])])]);})]));
+return self;},
+args: ["msg"],
+source: "processInfoMessage: msg\x0a\x09|resultElement|\x0a\x09Transcript show: msg; cr.\x0a\x09resultElement := (CommandExecutor doIt: (msg replace: '@info ' with: '')).\x0a\x09(self elementsContains: ( resultElement elName )) ifFalse: [\x0a\x09\x09\x09 HMIelement elements add: (resultElement setParent: (self baseClient))]",
+messageSends: ["show:", "cr", "doIt:", "replace:with:", "ifFalse:", "elementsContains:", "elName", "add:", "elements", "setParent:", "baseClient"],
+referencedClasses: ["Transcript", "CommandExecutor", "HMIelement"]
+}),
+smalltalk.WebHMICommandProcessor);
+
+smalltalk.addMethod(
+"_processMessage_",
+smalltalk.method({
+selector: "processMessage:",
+category: 'not yet classified',
+fn: function (msg){
+var self=this;
+((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_infoCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processInfoMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processInfoMessage_", [msg]);})]));
+((($receiver = ((($receiver = smalltalk.send(smalltalk.send((smalltalk.HMIelement || HMIelement), "_elements", []), "_size", [])).klass === smalltalk.Number) ? $receiver >(0) : smalltalk.send($receiver, "__gt", [(0)]))).klass === smalltalk.Boolean) ? ($receiver ? (function(){((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_switchCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processSwitchedMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processSwitchedMessage_", [msg]);})]));((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_moveCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processMovedMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processMovedMessage_", [msg]);})]));((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_paramsCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processParamsMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processParamsMessage_", [msg]);})]));((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_removeCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processRemoveMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processRemoveMessage_", [msg]);})]));return ((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_changeCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processParamChangeMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processParamChangeMessage_", [msg]);})]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_switchCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processSwitchedMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processSwitchedMessage_", [msg]);})]));((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_moveCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processMovedMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processMovedMessage_", [msg]);})]));((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_paramsCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processParamsMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processParamsMessage_", [msg]);})]));((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_removeCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processRemoveMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processRemoveMessage_", [msg]);})]));return ((($receiver = smalltalk.send(msg, "_match_", [smalltalk.send((smalltalk.WebHMICommand || WebHMICommand), "_changeCommand", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_processParamChangeMessage_", [msg]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_processParamChangeMessage_", [msg]);})]));})]));
+return self;},
+args: ["msg"],
+source: "processMessage: msg\x0a\x09(msg match: (WebHMICommand infoCommand))  ifTrue: [ self processInfoMessage: msg ].\x0a\x09\x0a\x09HMIelement elements size > 0 ifTrue: [\x0a\x09\x09(msg match: WebHMICommand switchCommand)  ifTrue: [ self processSwitchedMessage: msg ].\x0a\x09\x09(msg match: WebHMICommand moveCommand)  ifTrue: [ self processMovedMessage: msg ].\x0a\x09\x09(msg match: WebHMICommand paramsCommand)  ifTrue: [ self processParamsMessage: msg ].\x0a\x09\x09(msg match: WebHMICommand removeCommand)  ifTrue: [ self processRemoveMessage: msg ].\x0a\x09\x09(msg match: WebHMICommand changeCommand)  ifTrue: [ self processParamChangeMessage: msg ]]",
+messageSends: ["ifTrue:", "match:", "infoCommand", "processInfoMessage:", ">", "size", "elements", "switchCommand", "processSwitchedMessage:", "moveCommand", "processMovedMessage:", "paramsCommand", "processParamsMessage:", "removeCommand", "processRemoveMessage:", "changeCommand", "processParamChangeMessage:"],
+referencedClasses: ["WebHMICommand", "HMIelement"]
+}),
+smalltalk.WebHMICommandProcessor);
+
+smalltalk.addMethod(
+"_processMovedMessage_",
+smalltalk.method({
+selector: "processMovedMessage:",
+category: 'not yet classified',
+fn: function (msg){
+var self=this;
+smalltalk.send((smalltalk.CommandExecutor || CommandExecutor), "_doIt_", [smalltalk.send(msg, "_replace_with_", ["@moved ", ""])]);
+return self;},
+args: ["msg"],
+source: "processMovedMessage: msg\x0a\x09CommandExecutor doIt: (msg replace: '@moved ' with: '')",
+messageSends: ["doIt:", "replace:with:"],
+referencedClasses: ["CommandExecutor"]
+}),
+smalltalk.WebHMICommandProcessor);
+
+smalltalk.addMethod(
+"_processParamChangeMessage_",
+smalltalk.method({
+selector: "processParamChangeMessage:",
+category: 'not yet classified',
+fn: function (msg){
+var self=this;
+smalltalk.send((smalltalk.CommandExecutor || CommandExecutor), "_doIt_", [smalltalk.send(msg, "_replace_with_", ["@change ", ""])]);
+return self;},
+args: ["msg"],
+source: "processParamChangeMessage: msg\x0a\x09(CommandExecutor doIt: (msg replace: '@change ' with: '')) .",
+messageSends: ["doIt:", "replace:with:"],
+referencedClasses: ["CommandExecutor"]
+}),
+smalltalk.WebHMICommandProcessor);
+
+smalltalk.addMethod(
+"_processParamsMessage_",
+smalltalk.method({
+selector: "processParamsMessage:",
+category: 'not yet classified',
+fn: function (msg){
+var self=this;
+smalltalk.send(smalltalk.send((smalltalk.CommandExecutor || CommandExecutor), "_doIt_", [smalltalk.send(msg, "_replace_with_", ["@params ", ""])]), "_drawOn_", [smalltalk.send((smalltalk.WebHMIClientGui || WebHMIClientGui), "_field", [])]);
+return self;},
+args: ["msg"],
+source: "processParamsMessage: msg\x0a\x09(CommandExecutor doIt: (msg replace: '@params ' with: '')) drawOn: (WebHMIClientGui field).",
+messageSends: ["drawOn:", "doIt:", "replace:with:", "field"],
+referencedClasses: ["CommandExecutor", "WebHMIClientGui"]
+}),
+smalltalk.WebHMICommandProcessor);
+
+smalltalk.addMethod(
+"_processRemoveMessage_",
+smalltalk.method({
+selector: "processRemoveMessage:",
+category: 'not yet classified',
+fn: function (msg){
+var self=this;
+smalltalk.send((smalltalk.CommandExecutor || CommandExecutor), "_doIt_", [smalltalk.send(msg, "_replace_with_", ["@remove ", ""])]);
+return self;},
+args: ["msg"],
+source: "processRemoveMessage: msg\x0a\x09CommandExecutor doIt: (msg replace: '@remove ' with: '')",
+messageSends: ["doIt:", "replace:with:"],
+referencedClasses: ["CommandExecutor"]
+}),
+smalltalk.WebHMICommandProcessor);
+
+smalltalk.addMethod(
+"_processSwitchedMessage_",
+smalltalk.method({
+selector: "processSwitchedMessage:",
+category: 'not yet classified',
+fn: function (msg){
+var self=this;
+smalltalk.send((smalltalk.CommandExecutor || CommandExecutor), "_doIt_", [smalltalk.send(msg, "_replace_with_", ["@switched ", ""])]);
+return self;},
+args: ["msg"],
+source: "processSwitchedMessage: msg\x0a\x09CommandExecutor doIt: (msg replace: '@switched ' with: '')",
+messageSends: ["doIt:", "replace:with:"],
+referencedClasses: ["CommandExecutor"]
+}),
+smalltalk.WebHMICommandProcessor);
+
 
 

@@ -24,20 +24,21 @@ receiver: anObject
 ! !
 
 Object subclass: #HMIelement
-	instanceVariableNames: 'state elName elType element xPos yPos text elPicture elPictureOn elPictureOff params param1 usage'
+	instanceVariableNames: 'state elName elType element xPos yPos text elPicture elPictureOn elPictureOff params param1 usage scene socket netClient'
 	package: 'HMI'!
 
 !HMIelement methodsFor: 'not yet classified'!
+
+client
+	^netClient
+!
 
 drawOn: aRaphaelPaper
 	element := aRaphaelPaper image: ( self elPicture ) onX: self xPos onY: self yPos w: 128 h: 128.
 	text := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 140) text: self elName.
  	usage := aRaphaelPaper text: self xPos + 64 onY: (self yPos + 160) text: ''.
+	scene := aRaphaelPaper.
 	self state: self state.
-        element attr: 'opacity' value: 0.8.
-	((element attr: 'y') + 192) > ( WebHMI field height ) ifTrue: [ WebHMI setHeight: ( (element attr: 'y') + 192 ) ].
-	((element attr: 'x') + 128) > ( WebHMI field width ) ifTrue: [ WebHMI setWidth: ( (element attr: 'x') + 128 ) ].
-	WebHMI enableMoving ifTrue: [ self setActions ].
 !
 
 elName
@@ -74,15 +75,17 @@ oy := ( element attr: 'y' ).
 xFactor := 1.
 yFactor := 1.
 
-element drag: [ :dx :dy | 
-			xFactor := ((WebHMI field width + WebHMI scale) / (WebHMI field width )).
-			yFactor := ((WebHMI field height + WebHMI scale) / (WebHMI field height )).
-                        socket send: '@changePos #(WebHMIElement elementFromCollection: ', '''', self elName, '''' , ' ) xPos:',  ( ox + dx ), ' yPos:',  ( oy + dy ).
-			"(oy + dy + 192) > ( WebHMI field height ) ifTrue: [ WebHMI setHeight: ( oy + dy + 192 ) ]."
-                        "(ox + dx + 128) > ( WebHMI field width ) ifTrue: [ WebHMI setWidth: ( ox + dx + 128 ) ]. "] 
-		value: [  WebHMI currentItem: self. element attr: 'opacity' value: 1. ] 
+element drag: [ :dx :dy | (self client instance) send: '@changePos #(WebHMIElement elementFromCollection: ', '''', self elName, '''' , ' ) xPos:',  ( ox + dx ), ' yPos:',  ( oy + dy )] 
+		value: [  element attr: 'opacity' value: 1. ] 
 		value: [  ox := (xFactor / ( element attr: 'x' ) + ( element attr: 'x' )). oy := (yFactor / ( element attr: 'y' ) +  ( element attr: 'y' )). element attr: 'opacity' value: 0.8. ].
-element dblclick: [ socket send: '@switch #(WebHMIElement elementFromCollection: ', '''', self elName, '''' , ' ) switch' ].
+
+element dblclick: [ (self client instance) send: '@switch #(WebHMIElement elementFromCollection: ', '''', self elName, '''' , ' ) switch' ].
+!
+
+setParent: aWebHMIClient
+	netClient := aWebHMIClient.
+	self drawOn: ( self client interface paper ).
+	self setActions.
 !
 
 state
@@ -543,5 +546,189 @@ zoomOut
 	self setViewBox: 0 atY: 0 width: (self scale) height: (self scale).
 	self setHeight: (self field height + 20).
 	self setWidth: (self field width + 20).]
+! !
+
+Object subclass: #WebHMIClient
+	instanceVariableNames: 'commander ui'
+	package: 'HMI'!
+
+!WebHMIClient methodsFor: 'not yet classified'!
+
+commander
+	"Returns aWebHMICommandProcessor object of the client"
+	^commander
+!
+
+init
+	"Entry point for Network part. Here Network part will be initialized"
+	| address |
+	Transcript show: 'Connecting to server...'; cr.
+	address := document getElementById: 'ServerAddress'.
+		address ifNotNil: [  self initClientOn: 'ws://', address value,'/broadcast'. ]
+!
+
+initClientOn: anAddressWithPort
+	"Initializing WebSocket for data exchange"
+	commander := WebHMICommandProcessor new.
+	commander baseClient: self.
+
+	<socket = new WebSocket(anAddressWithPort); >.
+	<socket.onopen = function() { alert('Connection has been made successfuly');>.
+		socket send: (WebHMICommand getSchemeCommand).
+	<}>.
+	<socket.onmessage = function (evt) { >.
+    		self commander processMessage: (evt data).
+	<};>.
+	
+	<socket.onclose = function() { alert('Connection closed');}>.
+!
+
+installGui: aWebHMIClientGui
+	"Installs the GUI, that NetClient can use"
+	ui := aWebHMIClientGui
+!
+
+instance
+	"Returns a WebSocket object of the client"
+	^socket
+!
+
+interface
+	"Returns a WebHMIClientGui object of the client"
+	^ui
+! !
+
+WebHMIClient class instanceVariableNames: 'socket'!
+
+Object subclass: #WebHMIClientGui
+	instanceVariableNames: 'netClient field'
+	package: 'HMI'!
+
+!WebHMIClientGui methodsFor: 'not yet classified'!
+
+init
+	"Entry point for application. Here GUI part will be initialized, after that Network part will be initialized"	 
+	| connect |
+	Transcript show: 'Creating GUI...'; cr.
+	self paper: (self preparePaper: 'workspace').
+	netClient := WebHMIClient new.
+	netClient installGui: self.
+
+	connect := '#ConnectButton' asJQuery.
+	connect click: [ netClient init.].
+!
+
+paper
+	^field
+!
+
+paper: aPaper
+	 field := aPaper
+!
+
+preparePaper: aId
+	"Workfield prepare. Returns paper, where elements will be drawn"
+	|div|
+	Transcript show: 'Creating paper...'; cr.
+	div := document getElementById: aId.
+	^(Raphael value: div value: ( div clientWidth - 20 ) value: ( div clientHeight -  20))
+! !
+
+Object subclass: #WebHMICommand
+	instanceVariableNames: ''
+	package: 'HMI'!
+
+!WebHMICommand class methodsFor: 'not yet classified'!
+
+changeCommand
+	^'@change'
+!
+
+getSchemeCommand
+	^'@getScheme'
+!
+
+infoCommand
+	^'@info'
+!
+
+moveCommand
+	^'@moved'
+!
+
+paramsCommand
+	^'@params'
+!
+
+removeCommand
+	^'@remove'
+!
+
+switchCommand
+	^'@switched'
+! !
+
+Object subclass: #WebHMICommandProcessor
+	instanceVariableNames: 'netclient elements'
+	package: 'HMI'!
+
+!WebHMICommandProcessor methodsFor: 'not yet classified'!
+
+baseClient
+	^netclient
+!
+
+baseClient: aWebHMIClient
+	Transcript show: 'Creating commander...'; cr.
+	netclient := aWebHMIClient
+!
+
+elements 
+	elements ifNil: [ elements := HMIelement elements ].
+	^elements
+!
+
+elementsContains: aString
+	self elements do: [ : el | el elName = aString ifTrue: [^ true]].
+	^false
+!
+
+processInfoMessage: msg
+	|resultElement|
+	Transcript show: msg; cr.
+	resultElement := (CommandExecutor doIt: (msg replace: '@info ' with: '')).
+	(self elementsContains: ( resultElement elName )) ifFalse: [
+			 HMIelement elements add: (resultElement setParent: (self baseClient))]
+!
+
+processMessage: msg
+	(msg match: (WebHMICommand infoCommand))  ifTrue: [ self processInfoMessage: msg ].
+	
+	HMIelement elements size > 0 ifTrue: [
+		(msg match: WebHMICommand switchCommand)  ifTrue: [ self processSwitchedMessage: msg ].
+		(msg match: WebHMICommand moveCommand)  ifTrue: [ self processMovedMessage: msg ].
+		(msg match: WebHMICommand paramsCommand)  ifTrue: [ self processParamsMessage: msg ].
+		(msg match: WebHMICommand removeCommand)  ifTrue: [ self processRemoveMessage: msg ].
+		(msg match: WebHMICommand changeCommand)  ifTrue: [ self processParamChangeMessage: msg ]]
+!
+
+processMovedMessage: msg
+	CommandExecutor doIt: (msg replace: '@moved ' with: '')
+!
+
+processParamChangeMessage: msg
+	(CommandExecutor doIt: (msg replace: '@change ' with: '')) .
+!
+
+processParamsMessage: msg
+	(CommandExecutor doIt: (msg replace: '@params ' with: '')) drawOn: (WebHMIClientGui field).
+!
+
+processRemoveMessage: msg
+	CommandExecutor doIt: (msg replace: '@remove ' with: '')
+!
+
+processSwitchedMessage: msg
+	CommandExecutor doIt: (msg replace: '@switched ' with: '')
 ! !
 
