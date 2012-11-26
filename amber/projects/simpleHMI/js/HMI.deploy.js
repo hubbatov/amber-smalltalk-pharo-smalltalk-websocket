@@ -154,6 +154,7 @@ var yFactor=nil;
 (yFactor=(1));
 smalltalk.send(self['@element'], "_drag_value_value_", [(function(dx, dy){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_client", []), "_instance", []), "_send_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("@changePos #(WebHMIElement elementFromCollection: ", "__comma", ["'"]), "__comma", [smalltalk.send(self, "_elName", [])]), "__comma", ["'"]), "__comma", [" ) xPos:"]), "__comma", [((($receiver = ox).klass === smalltalk.Number) ? $receiver +dx : smalltalk.send($receiver, "__plus", [dx]))]), "__comma", [" yPos:"]), "__comma", [((($receiver = oy).klass === smalltalk.Number) ? $receiver +dy : smalltalk.send($receiver, "__plus", [dy]))])]);}), (function(){return smalltalk.send(self['@element'], "_attr_value_", ["opacity", (1)]);}), (function(){(ox=((($receiver = ((($receiver = xFactor).klass === smalltalk.Number) ? $receiver /smalltalk.send(self['@element'], "_attr_", ["x"]) : smalltalk.send($receiver, "__slash", [smalltalk.send(self['@element'], "_attr_", ["x"])]))).klass === smalltalk.Number) ? $receiver +smalltalk.send(self['@element'], "_attr_", ["x"]) : smalltalk.send($receiver, "__plus", [smalltalk.send(self['@element'], "_attr_", ["x"])])));(oy=((($receiver = ((($receiver = yFactor).klass === smalltalk.Number) ? $receiver /smalltalk.send(self['@element'], "_attr_", ["y"]) : smalltalk.send($receiver, "__slash", [smalltalk.send(self['@element'], "_attr_", ["y"])]))).klass === smalltalk.Number) ? $receiver +smalltalk.send(self['@element'], "_attr_", ["y"]) : smalltalk.send($receiver, "__plus", [smalltalk.send(self['@element'], "_attr_", ["y"])])));return smalltalk.send(self['@element'], "_attr_value_", ["opacity", (0.8)]);})]);
 smalltalk.send(self['@element'], "_dblclick_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_client", []), "_instance", []), "_send_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("@switch #(WebHMIElement elementFromCollection: ", "__comma", ["'"]), "__comma", [smalltalk.send(self, "_elName", [])]), "__comma", ["'"]), "__comma", [" ) switch"])]);})]);
+smalltalk.send(self['@element'], "_click_", [(function(){return smalltalk.send((smalltalk.WebHMIClientGui || WebHMIClientGui), "_currentItem_", [self]);})]);
 return self;}
 }),
 smalltalk.HMIelement);
@@ -1090,7 +1091,7 @@ smalltalk.WebHMIClient);
 
 smalltalk.WebHMIClient.klass.iVarNames = ['socket'];
 
-smalltalk.addClass('WebHMIClientGui', smalltalk.Object, ['netClient', 'field'], 'HMI');
+smalltalk.addClass('WebHMIClientGui', smalltalk.Object, ['netClient', 'field', 'htmlContent'], 'HMI');
 smalltalk.addMethod(
 "_init",
 smalltalk.method({
@@ -1103,7 +1104,7 @@ smalltalk.send(self, "_paper_", [smalltalk.send(self, "_preparePaper_", ["worksp
 (self['@netClient']=smalltalk.send((smalltalk.WebHMIClient || WebHMIClient), "_new", []));
 smalltalk.send(self['@netClient'], "_installGui_", [self]);
 (connect=smalltalk.send("#ConnectButton", "_asJQuery", []));
-smalltalk.send(connect, "_click_", [(function(){return smalltalk.send(self['@netClient'], "_init", []);})]);
+smalltalk.send(connect, "_click_", [(function(){smalltalk.send(self['@netClient'], "_init", []);(self['@htmlContent']=smalltalk.send((smalltalk.WebHMIClientHTMLBuilder || WebHMIClientHTMLBuilder), "_new", []));return smalltalk.send(self['@htmlContent'], "_buildMainHtml", []);})]);
 return self;}
 }),
 smalltalk.WebHMIClientGui);
@@ -1144,6 +1145,176 @@ return self;}
 }),
 smalltalk.WebHMIClientGui);
 
+
+smalltalk.WebHMIClientGui.klass.iVarNames = ['currentItem'];
+smalltalk.addMethod(
+"_currentItem",
+smalltalk.method({
+selector: "currentItem",
+fn: function (){
+var self=this;
+(($receiver = self['@currentItem']) == nil || $receiver == undefined) ? (function(){return (self['@currentItem']=smalltalk.send((smalltalk.HMIelement || HMIelement), "_new", []));})() : $receiver;
+return self['@currentItem'];
+return self;}
+}),
+smalltalk.WebHMIClientGui.klass);
+
+smalltalk.addMethod(
+"_currentItem_",
+smalltalk.method({
+selector: "currentItem:",
+fn: function (aItem){
+var self=this;
+var div=nil;
+var text=nil;
+var type=nil;
+var onPath=nil;
+var offPath=nil;
+var remButton=nil;
+(self['@currentItem']=aItem);
+(div=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["selected"]));
+(text=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["itemName"]));
+(type=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["itemTypeName"]));
+(onPath=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["itemOnPath"]));
+(offPath=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["itemOffPath"]));
+(($receiver = div) != nil && $receiver != undefined) ? (function(){return smalltalk.send(div, "_innerHTML_", [smalltalk.send("Selected item - ", "__comma", [smalltalk.send(self['@currentItem'], "_elName", [])])]);})() : nil;
+(($receiver = text) != nil && $receiver != undefined) ? (function(){return smalltalk.send(text, "_value_", [smalltalk.send(self['@currentItem'], "_elName", [])]);})() : nil;
+(($receiver = type) != nil && $receiver != undefined) ? (function(){return smalltalk.send(type, "_value_", [smalltalk.send(smalltalk.send(self['@currentItem'], "_elType", []), "_typeName", [])]);})() : nil;
+(($receiver = onPath) != nil && $receiver != undefined) ? (function(){return smalltalk.send(onPath, "_value_", [smalltalk.send(smalltalk.send(self['@currentItem'], "_elType", []), "_on", [])]);})() : nil;
+(($receiver = offPath) != nil && $receiver != undefined) ? (function(){return smalltalk.send(offPath, "_value_", [smalltalk.send(smalltalk.send(self['@currentItem'], "_elType", []), "_off", [])]);})() : nil;
+return self;}
+}),
+smalltalk.WebHMIClientGui.klass);
+
+smalltalk.addMethod(
+"_currentItemRemove",
+smalltalk.method({
+selector: "currentItemRemove",
+fn: function (){
+var self=this;
+(function($rec){smalltalk.send($rec, "_show_", ["Removing current item"]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));
+return self;}
+}),
+smalltalk.WebHMIClientGui.klass);
+
+smalltalk.addMethod(
+"_currentItemUpdate",
+smalltalk.method({
+selector: "currentItemUpdate",
+fn: function (){
+var self=this;
+(function($rec){smalltalk.send($rec, "_show_", ["Removing current item"]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));
+return self;}
+}),
+smalltalk.WebHMIClientGui.klass);
+
+smalltalk.addMethod(
+"_newItemAdd",
+smalltalk.method({
+selector: "newItemAdd",
+fn: function (){
+var self=this;
+(function($rec){smalltalk.send($rec, "_show_", ["Adding new item"]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));
+return self;}
+}),
+smalltalk.WebHMIClientGui.klass);
+
+
+smalltalk.addClass('WebHMIClientHTMLBuilder', smalltalk.Object, [], 'HMI');
+smalltalk.addMethod(
+"_buildMainHtml",
+smalltalk.method({
+selector: "buildMainHtml",
+fn: function (){
+var self=this;
+var addButton=nil;
+var removeButton=nil;
+var updateButton=nil;
+var sidebarDiv=nil;
+(function($rec){smalltalk.send($rec, "_show_", ["Generating main HTML..."]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));
+(addButton=smalltalk.send("#addItem", "_asJQuery", []));
+smalltalk.send(addButton, "_click_", [(function(){return smalltalk.send(self, "_renderAddForm", []);})]);
+(removeButton=smalltalk.send("#delItem", "_asJQuery", []));
+smalltalk.send(removeButton, "_click_", [(function(){return smalltalk.send(self, "_renderRemoveForm", []);})]);
+(updateButton=smalltalk.send("#chItem", "_asJQuery", []));
+smalltalk.send(updateButton, "_click_", [(function(){return smalltalk.send(self, "_renderUpdateForm", []);})]);
+smalltalk.send(self, "_renderAddForm", []);
+return self;}
+}),
+smalltalk.WebHMIClientHTMLBuilder);
+
+smalltalk.addMethod(
+"_renderAddForm",
+smalltalk.method({
+selector: "renderAddForm",
+fn: function (){
+var self=this;
+var div=nil;
+(div=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["sidebar"]));
+(($receiver = div) != nil && $receiver != undefined) ? (function(){return smalltalk.send(div, "_innerHTML_", [smalltalk.send((smalltalk.WebHMIClientHTMLBuilder || WebHMIClientHTMLBuilder), "_formAddHtml", [])]);})() : nil;
+return self;}
+}),
+smalltalk.WebHMIClientHTMLBuilder);
+
+smalltalk.addMethod(
+"_renderRemoveForm",
+smalltalk.method({
+selector: "renderRemoveForm",
+fn: function (){
+var self=this;
+var div=nil;
+(div=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["sidebar"]));
+(($receiver = div) != nil && $receiver != undefined) ? (function(){return smalltalk.send(div, "_innerHTML_", [smalltalk.send((smalltalk.WebHMIClientHTMLBuilder || WebHMIClientHTMLBuilder), "_formRemoveHtml", [])]);})() : nil;
+return self;}
+}),
+smalltalk.WebHMIClientHTMLBuilder);
+
+smalltalk.addMethod(
+"_renderUpdateForm",
+smalltalk.method({
+selector: "renderUpdateForm",
+fn: function (){
+var self=this;
+var div=nil;
+(div=smalltalk.send((typeof document == 'undefined' ? nil : document), "_getElementById_", ["sidebar"]));
+(($receiver = div) != nil && $receiver != undefined) ? (function(){return smalltalk.send(div, "_innerHTML_", [smalltalk.send((smalltalk.WebHMIClientHTMLBuilder || WebHMIClientHTMLBuilder), "_formUpdateHtml", [])]);})() : nil;
+return self;}
+}),
+smalltalk.WebHMIClientHTMLBuilder);
+
+
+smalltalk.addMethod(
+"_formAddHtml",
+smalltalk.method({
+selector: "formAddHtml",
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("<form>", "__comma", ["<p>Item name:"]), "__comma", ["<input id=\x22itemName\x22 class='inputField' type=\x22text\x22 value=\x22\x22><br>"]), "__comma", ["<p>Item type:"]), "__comma", ["<select id=\x22itemType\x22 class='inputField' value=\x22\x22>"]), "__comma", ["<option id=\x221\x22 value=\x22server\x22>Server</option>"]), "__comma", ["<option id=\x222\x22 value=\x22workstation\x22>Workstation</option>"]), "__comma", ["<option id=\x223\x22 value=\x22router\x22>Router</option>"]), "__comma", ["</select><br>"]), "__comma", ["<input id=\x22add\x22 class='actionButton'  type=\x22button\x22 value=\x22\x22 onclick=\x22 smalltalk.WebHMIClientGui._newItemAdd()\x22>"]), "__comma", ["</form>"]), "__comma", ["<div id=\x22info\x22></div>"]);
+return self;}
+}),
+smalltalk.WebHMIClientHTMLBuilder.klass);
+
+smalltalk.addMethod(
+"_formRemoveHtml",
+smalltalk.method({
+selector: "formRemoveHtml",
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Click item to select, than click ' Remove ' to remove it <br>", "__comma", ["<div id=\x22selected\x22></div>"]), "__comma", ["<form>"]), "__comma", ["\x09<input id=\x22remove\x22 class='actionButton' type=\x22button\x22 value=\x22\x22 onclick=\x22 smalltalk.WebHMIClientGui._currentItemRemove()\x22>"]), "__comma", ["</form>"]), "__comma", ["<div id=\x22info\x22></div>"]);
+return self;}
+}),
+smalltalk.WebHMIClientHTMLBuilder.klass);
+
+smalltalk.addMethod(
+"_formUpdateHtml",
+smalltalk.method({
+selector: "formUpdateHtml",
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("<form>", "__comma", ["<p>Item name:"]), "__comma", ["<input id=\x22itemName\x22 class='inputField' type=\x22text\x22 value=\x22\x22><br>"]), "__comma", ["<p>Item type name:"]), "__comma", ["<input id=\x22itemTypeName\x22 class='inputField' type=\x22text\x22 value=\x22\x22><br>"]), "__comma", ["<p>Item switched on value:"]), "__comma", ["<input id=\x22itemOnPath\x22 class='inputField' type=\x22text\x22 value=\x22\x22><br>"]), "__comma", ["<p>Item switched off value:"]), "__comma", ["<input id=\x22itemOffPath\x22 class='inputField' type=\x22text\x22 value=\x22\x22><br>"]), "__comma", ["<input id=\x22change\x22 class='actionButton' type=\x22button\x22 value='' onclick=\x22 smalltalk.WebHMIClientGui._currentItemUpdate()\x22>"]), "__comma", ["</form>"]), "__comma", ["<div id=\x22info\x22></div>"]);
+return self;}
+}),
+smalltalk.WebHMIClientHTMLBuilder.klass);
 
 
 smalltalk.addClass('WebHMICommand', smalltalk.Object, [], 'HMI');

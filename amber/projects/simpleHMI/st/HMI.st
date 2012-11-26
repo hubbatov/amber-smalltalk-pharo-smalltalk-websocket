@@ -80,6 +80,8 @@ element drag: [ :dx :dy | (self client instance) send: '@changePos #(WebHMIEleme
 		value: [  ox := (xFactor / ( element attr: 'x' ) + ( element attr: 'x' )). oy := (yFactor / ( element attr: 'y' ) +  ( element attr: 'y' )). element attr: 'opacity' value: 0.8. ].
 
 element dblclick: [ (self client instance) send: '@switch #(WebHMIElement elementFromCollection: ', '''', self elName, '''' , ' ) switch' ].
+
+element click: [ WebHMIClientGui currentItem: self ]
 !
 
 setParent: aWebHMIClient
@@ -601,7 +603,7 @@ interface
 WebHMIClient class instanceVariableNames: 'socket'!
 
 Object subclass: #WebHMIClientGui
-	instanceVariableNames: 'netClient field'
+	instanceVariableNames: 'netClient field htmlContent'
 	package: 'HMI'!
 
 !WebHMIClientGui methodsFor: 'not yet classified'!
@@ -609,13 +611,17 @@ Object subclass: #WebHMIClientGui
 init
 	"Entry point for application. Here GUI part will be initialized, after that Network part will be initialized"	 
 	| connect |
+	
 	Transcript show: 'Creating GUI...'; cr.
 	self paper: (self preparePaper: 'workspace').
 	netClient := WebHMIClient new.
 	netClient installGui: self.
 
 	connect := '#ConnectButton' asJQuery.
-	connect click: [ netClient init.].
+	connect click: [ 
+		netClient init. 	
+		htmlContent := WebHMIClientHTMLBuilder new.
+		htmlContent buildMainHtml ]
 !
 
 paper
@@ -632,6 +638,170 @@ preparePaper: aId
 	Transcript show: 'Creating paper...'; cr.
 	div := document getElementById: aId.
 	^(Raphael value: div value: ( div clientWidth - 20 ) value: ( div clientHeight -  20))
+! !
+
+WebHMIClientGui class instanceVariableNames: 'currentItem'!
+
+!WebHMIClientGui class methodsFor: 'not yet classified'!
+
+currentItem
+        currentItem ifNil: [ currentItem := HMIelement new ].
+	^currentItem
+!
+
+currentItem: aItem
+"Selecting item"
+|div text type onPath offPath remButton|
+
+currentItem := aItem.
+
+div := document getElementById: 'selected'.
+text := document getElementById: 'itemName'.
+type := document getElementById: 'itemTypeName'.
+onPath := document getElementById: 'itemOnPath'.
+offPath := document getElementById: 'itemOffPath'.
+div ifNotNil: [ div innerHTML: 'Selected item - ' , currentItem elName ].
+text ifNotNil: [ text value: currentItem elName ].
+type ifNotNil: [ type value: currentItem elType typeName ].
+onPath ifNotNil: [ onPath value: currentItem elType on ].
+offPath ifNotNil: [ offPath value: currentItem elType off ].
+!
+
+currentItemRemove
+	Transcript show: 'Removing current item'; cr
+
+	"|div|
+div := document getElementById: 'sidebar'.
+
+(self currentItem elName = 'emptyName') ifFalse: [
+		div innerHTML: ( div innerHTML ,'<br>Removed Item ', self currentItem elName ).
+		socket send: '@remove #(WebHMIElement RemoveByName: ', '''', self currentItem elName, ''')'.
+		self currentItem: (HMIelement new) ]
+								ifTrue: [ window alert: 'Select item to delete' ]"
+!
+
+currentItemUpdate
+	Transcript show: 'Removing current item'; cr
+
+"
+itemName := document getElementById: 'itemName'.
+typeName := document getElementById: 'itemTypeName'.
+onPic := document getElementById: 'itemOnPath'.
+offPic := document getElementById: 'itemOffPath'.
+div := document getElementById: 'sidebar'.
+
+itemName value size > 0 ifTrue: [
+	typeName value size > 0 ifTrue: [
+		onPic value size > 0 ifTrue: [
+			offPic value size > 0 ifTrue: [
+
+				socket send: '@changeParam #(WebHMIElement elementFromCollection: ' , '''' , currentItem elName, '''', ') elName:  ', '''' ,itemName value, '''', '; elType: ((WebHMIElementType new) typeName: ', '''' , typeName value,'''',  
+						'; imageOn: ', '''', onPic value, '''', '; imageOff: ', '''', offPic value, '''', ')'.
+
+				div innerHTML: ( div innerHTML ,'<br>Changed Item ', itemName value, ' ' , typeName value ) ]
+			ifFalse: [ window alert: 'Please check out empty fields' ]]
+		ifFalse: [ window alert: 'Please check out empty fields' ]] 
+	ifFalse: [ window alert: 'Please check out empty fields' ]]
+ifFalse: [ window alert: 'Please check out empty fields' ]"
+!
+
+newItemAdd
+	Transcript show: 'Adding new item'; cr
+
+"
+|div itemName itemType err|
+itemName := document getElementById: 'itemName'.
+itemType := document getElementById: 'itemType'.
+div := document getElementById: 'sidebar'.
+itemName value > 0 ifTrue: [
+                      div innerHTML: ( div innerHTML ,'<br>Added Item ', itemName value, ' ' ,itemType value ).
+                      socket send: '@add #(WebHMIElement Add: (WebHMIElement new createElement:  ', '''' ,itemName value, '''', ' withType: (WebHMIElementType ', itemType value, ')))']
+                                     ifFalse: [ window alert: 'Field ''Name'' must be not empty' ] "
+! !
+
+Object subclass: #WebHMIClientHTMLBuilder
+	instanceVariableNames: ''
+	package: 'HMI'!
+
+!WebHMIClientHTMLBuilder methodsFor: 'not yet classified'!
+
+buildMainHtml
+	"HTML-generator init part. Builds html with linking buttons with functions"
+	| addButton removeButton updateButton sidebarDiv |
+	Transcript show: 'Generating main HTML...'; cr.
+
+	addButton := '#addItem' asJQuery.
+	addButton click: [  self renderAddForm ].
+
+	removeButton := '#delItem' asJQuery.
+	removeButton click: [  self renderRemoveForm ].
+
+	updateButton := '#chItem' asJQuery.
+	updateButton click: [ self renderUpdateForm ].
+
+	self renderAddForm.
+!
+
+renderAddForm
+|div|
+	div := document getElementById: 'sidebar'.
+	div ifNotNil: [ div innerHTML: (WebHMIClientHTMLBuilder formAddHtml)]
+!
+
+renderRemoveForm
+|div|
+	div := document getElementById: 'sidebar'.
+	div ifNotNil: [ div innerHTML: (WebHMIClientHTMLBuilder formRemoveHtml) ]
+!
+
+renderUpdateForm
+|div|
+	div := document getElementById: 'sidebar'.
+	div ifNotNil: [ div innerHTML: (WebHMIClientHTMLBuilder formUpdateHtml) ]
+! !
+
+!WebHMIClientHTMLBuilder class methodsFor: 'not yet classified'!
+
+formAddHtml
+^
+'<form>',
+	'<p>Item name:',
+ 	'<input id="itemName" class=''inputField'' type="text" value=""><br>',
+	'<p>Item type:',
+	'<select id="itemType" class=''inputField'' value="">',
+		'<option id="1" value="server">Server</option>',
+		'<option id="2" value="workstation">Workstation</option>',
+		'<option id="3" value="router">Router</option>',
+	'</select><br>',
+	'<input id="add" class=''actionButton''  type="button" value="" onclick=" smalltalk.WebHMIClientGui._newItemAdd()">',
+'</form>',
+'<div id="info"></div>'.
+!
+
+formRemoveHtml
+^
+ 'Click item to select, than click '' Remove '' to remove it <br>', 
+'<div id="selected"></div>',
+'<form>',
+'	<input id="remove" class=''actionButton'' type="button" value="" onclick=" smalltalk.WebHMIClientGui._currentItemRemove()">',
+'</form>',
+'<div id="info"></div>'.
+!
+
+formUpdateHtml
+^
+'<form>',
+	'<p>Item name:',
+	'<input id="itemName" class=''inputField'' type="text" value=""><br>',
+	'<p>Item type name:',
+	'<input id="itemTypeName" class=''inputField'' type="text" value=""><br>',
+	'<p>Item switched on value:',
+	'<input id="itemOnPath" class=''inputField'' type="text" value=""><br>',
+	'<p>Item switched off value:',
+	'<input id="itemOffPath" class=''inputField'' type="text" value=""><br>',
+	'<input id="change" class=''actionButton'' type="button" value='''' onclick=" smalltalk.WebHMIClientGui._currentItemUpdate()">',
+'</form>',
+'<div id="info"></div>'.
 ! !
 
 Object subclass: #WebHMICommand
